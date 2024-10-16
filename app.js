@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 
@@ -23,13 +24,20 @@ db.connect((err) => {
     console.log('Connected to MariaDB as id', db.threadId);
 });
 
-// Middleware
+// Middleware for parsing form data
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
 
-// Serve the registration form
+// Middleware to serve static files (CSS, images, JS, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve the homepage (index.html)
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Serve the registration page (join.html)
+app.get('/join', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'join.html'));
 });
 
 // Handle form submission

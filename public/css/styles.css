@@ -7,7 +7,7 @@ body, html {
     align-items: center;
     background-color: #f9f9f9;
 
-    background-image: url('assets/background.webp');
+    background-image: url('../images/background.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
