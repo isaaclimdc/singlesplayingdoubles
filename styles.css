@@ -57,3 +57,55 @@ p {
 .cta-btn:hover {
     background-color: #e55347;
 }
+
+/** JOIN */
+
+/* body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+} */
+
+.form-container {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 30px 70px 30px 70px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+h2 {
+    font-family: "Lora", serif;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    color: #333;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    font-family: "Montserrat", sans-serif;
+}
+
+textarea {
+    resize: none;
+    height: 80px;
+}
