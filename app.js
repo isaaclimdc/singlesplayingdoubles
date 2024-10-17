@@ -43,13 +43,14 @@ app.get('/thanks', (req, res) => {
 
 // Handle form submission
 app.post('/register', (req, res) => {
-    const { name, email, age, gender, ig_handle, skill, misc_notes } = req.body;
+    const { name, email, age, gender, ig_handle, skill, notes } = req.body;
 
     const ig_handle_clean = String(ig_handle).replace('@', '');
+    const createdAt = new Date();
 
-    const sql = `INSERT INTO applications (name, email, age, gender, ig_handle, skill, misc_notes) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO applications (name, email, age, gender, ig_handle, skill, notes, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    db.query(sql, [name, email, age, gender, ig_handle_clean, skill, misc_notes], (err, result) => {
+    db.query(sql, [name, email, age, gender, ig_handle_clean, skill, notes, createdAt], (err, result) => {
         if (err) {
             console.error('Error inserting data:', err);
             res.status(500).send('An error occurred while processing your registration.');
