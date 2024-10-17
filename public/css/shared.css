@@ -1,0 +1,55 @@
+body, html {
+    font-family: "Montserrat", sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: #f9f9f9;
+    background-image: url('../images/background.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 30px 70px 30px 70px;
+    border-radius: 10px;
+}
+
+.logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-family: "Lora", serif;
+    font-size: 2.5em;
+    margin: 0;
+    color: #333;
+}
+
+p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    margin-top: 20px;
+    background-color: #FF6347;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: #e55347;
+}

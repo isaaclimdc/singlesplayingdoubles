@@ -1,0 +1,44 @@
+.form-container {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 30px 70px;
+    margin: 30px 70px;
+    border-radius: 10px;
+    /* max-width: 400px; */
+    /* width: 100%; */
+    text-align: center;
+}
+
+h2 {
+    font-family: "Lora", serif;
+    font-size: 2.0em;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold;
+    color: #333;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    font-family: "Montserrat", sans-serif;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+}
+
+button {
+    border: 0px;
+}

@@ -30,28 +30,31 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Middleware to serve static files (CSS, images, JS, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve the homepage (index.html)
+// Serve HTML pages
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
-// Serve the registration page (join.html)
 app.get('/join', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'join.html'));
+});
+app.get('/thanks', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'thanks.html'));
 });
 
 // Handle form submission
 app.post('/register', (req, res) => {
-    const { name, email, age, skill, preferences } = req.body;
+    const { name, email, age, gender, ig_handle, skill, misc_notes } = req.body;
 
-    const sql = `INSERT INTO users (name, email, age, skill, preferences) VALUES (?, ?, ?, ?, ?)`;
+    const ig_handle_clean = String(ig_handle).replace('@', '');
 
-    db.query(sql, [name, email, age, skill, preferences], (err, result) => {
+    const sql = `INSERT INTO applications (name, email, age, gender, ig_handle, skill, misc_notes) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
+    db.query(sql, [name, email, age, gender, ig_handle_clean, skill, misc_notes], (err, result) => {
         if (err) {
             console.error('Error inserting data:', err);
             res.status(500).send('An error occurred while processing your registration.');
         } else {
-            res.send('Registration successful! Thank you for joining.');
+            res.redirect('/thanks');
         }
     });
 });
