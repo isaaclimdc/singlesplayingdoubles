@@ -56,8 +56,8 @@ p {
     background-color: #e55347;
 }
 
-/* Media query for small screens (e.g., width 600px and below) */
-@media only screen and (max-width: 600px) {
+/* Media query for small screens */
+@media only screen and (max-width: 767px) {
 
     .container {
         padding: 25px;
