@@ -17,13 +17,10 @@
         <h2>Join Singles Playing Doubles!</h2>
         <form action="/register" method="POST">
             <label for="name">Let's start with your full name.</label>
-            <input type="text" id="name" name="name" required>
-
-            <label for="email">What's your email?</label>
-            <input type="email" id="email" name="email" required>
+            <input type="text" id="name" name="name" placeholder="Natalie Lim" required>
 
             <label for="age">How old are you?</label>
-            <input type="number" id="age" name="age" required min="18" max="100">
+            <input type="number" id="age" name="age" min="18" max="100" required>
 
             <label for="gender">What's your gender?</label>
             <select id="gender" name="gender" required>
@@ -32,20 +29,38 @@
                 <option value="Male">Male</option>
             </select>
 
-            <label for="ig-handle">What's your Instagram handle?</label>
-            <input type="text" id="ig-handle" name="ig_handle" required>
+            <label for="email">What's your email?</label>
+            <input type="email" id="email" name="email" placeholder="name@gmail.com" required>
 
-            <label for="skill">How's your tennis level?</label>
-            <select id="skill" name="skill" required>
-                <option value="">Select skill level</option>
-                <option value="never_played">Never Played</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
+            <label for="phone">What's your Singapore phone number?</label>
+            <input type="tel" id="phone" name="phone" placeholder="91234567" pattern="[89][0-9]{7}" required>
+
+            <label for="ig-handle">What's your Instagram handle?</label>
+            <label for="personality_notes" class="sublabel">This is optional, but helps us create a great group dynamic!</label>
+            <input type="text" id="ig-handle" name="ig_handle" placeholder="@singlesplayingdoubles">
+
+            <label for="tennis_level">How's your tennis level?</label>
+            <select id="tennis_level" name="tennis_level" required>
+                <option value="">Select tennis level</option>
+                <option value="zero">New - Barely held a racket before!</option>
+                <option value="beginner">Beginner - Taken a few lessons, or been casually hitting</option>
+                <option value="intermediate">Intermediate - Been training hard for months/years now</option>
+                <option value="advanced">Advanced - Played tennis for a long time, or play competitively</option>
             </select>
 
-            <label for="notes">Anything else you'd like us to know?</label>
-            <textarea id="notes" name="notes"></textarea>
+            <label for="personality_notes">
+                Can you tell us a bit more about your personality, and also what you're looking for in a potential partner?
+            </label>
+            <label for="personality_notes" class="sublabel">
+                For example, what's your MBTI type? What makes your heart skip a beat? :) This will help us design the best group for you!
+            </label>
+            <textarea id="personality_notes" name="personality_notes"></textarea>
+
+            <label for="misc_notes">Anything else you'd like us to know?</label>
+            <label for="misc_notes" class="sublabel">For example, do you have other fun hobbies, personal interests, or fancy skills? :)
+                Or perhaps, any allergies or discomforts?
+            </label>
+            <textarea id="misc_notes" name="misc_notes"></textarea>
 
             <button type="submit" class="cta-btn">Submit!</button>
         </form>

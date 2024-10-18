@@ -5,13 +5,21 @@ h2 {
     color: #333;
 }
 
-label {
+label, .sublabel {
     display: block;
     text-align: left;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-family: "Montserrat", sans-serif;
     font-weight: bold;
+    font-size: 1.1em;
     color: #333;
+}
+
+.sublabel {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 1em;
+    margin-top: -4px;
 }
 
 input, select, textarea {
@@ -26,8 +34,7 @@ input, select, textarea {
 
 textarea {
     resize: none;
-    height: 100px;
-    margin-bottom: 0px;
+    height: 120px;
 }
 
 button {
