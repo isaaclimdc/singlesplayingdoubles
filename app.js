@@ -69,7 +69,7 @@ app.post('/register', (req, res) => {
         tennisLevel: tennis_level,
         personalityNotes: personality_notes,
         miscNotes: misc_notes,
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
 
         igHandleClean: function() {
             return String(this.igHandle).replace('@', '');
@@ -130,7 +130,7 @@ function sendEmailToApplicant(applicant) {
                 background-color: #ffffff;
             }
             .header {
-                background-color: #666666;
+                background-color: #f9eede;
                 background-image: url('https://singlesplayingdoubles.sg/images/background-faint.png');
                 background-size: cover;
                 background-position: center;
