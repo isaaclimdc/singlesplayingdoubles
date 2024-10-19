@@ -1,11 +1,13 @@
-require('dotenv').config();
+const dotenv = require('dotenv')
 const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const path = require('path');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
+dotenv.config();
 
 // Connect to MariaDB using environment variables
 const db = mysql.createConnection({
@@ -13,7 +15,7 @@ const db = mysql.createConnection({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT || 3306 // Default MariaDB port
+    port: process.env.DB_PORT || 3306
 });
 
 db.connect((err) => {
@@ -54,7 +56,7 @@ app.get('/thanks', (req, res) => {
 
 // Handle form submission
 app.post('/register', (req, res) => {
-    const { name, age, gender, email, phone, ig_handle, tennis_level, personality_notes, misc_notes } = req.body;
+    const { id, name, age, gender, email, phone, ig_handle, tennis_level, personality_notes, misc_notes } = req.body;
 
     // Define a applicant object
     const applicant = {
@@ -75,11 +77,12 @@ app.post('/register', (req, res) => {
     };
 
     const sql = `INSERT INTO applications_v1
-                    (name, age, gender, email, phone, ig_handle, tennis_level, personality_notes, misc_notes, created_at)
+                    (id, name, age, gender, email, phone, ig_handle, tennis_level, personality_notes, misc_notes, created_at)
                 VALUES
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     db.query(sql, [
+        uuidv4(),
         applicant.name,
         applicant.age,
         applicant.gender,
