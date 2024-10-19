@@ -16,30 +16,31 @@
     <div class="container">
         <h2>Join Singles Playing Doubles!</h2>
         <form action="/register" method="POST">
-            <label for="name">Let's start with your full name.</label>
+            <label for="name" class="required">Let's start with your full name.</label>
             <input type="text" id="name" name="name" placeholder="Natalie Lim" required>
 
-            <label for="age">How old are you?</label>
+            <label for="age" class="required">How old are you?</label>
             <input type="number" id="age" name="age" min="18" max="100" required>
 
-            <label for="gender">What's your gender?</label>
+            <label for="gender" class="required">What's your gender?</label>
             <select id="gender" name="gender" required>
                 <option value="">Select gender</option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
             </select>
 
-            <label for="email">What's your email?</label>
+            <label for="email" class="required">What's your email?</label>
             <input type="email" id="email" name="email" placeholder="name@gmail.com" required>
 
-            <label for="phone">What's your Singapore phone number?</label>
+            <label for="phone" class="required">What's your Singapore phone number?</label>
             <input type="tel" id="phone" name="phone" placeholder="91234567" pattern="[89][0-9]{7}" required>
 
             <label for="ig-handle">What's your Instagram handle?</label>
             <label for="personality_notes" class="sublabel">This is optional, but helps us create a great group dynamic!</label>
             <input type="text" id="ig-handle" name="ig_handle" placeholder="@singlesplayingdoubles">
 
-            <label for="tennis_level">How's your tennis level?</label>
+            <label for="tennis_level" class="required">How's your tennis level?</label>
+            <label for="tennis_level" class="sublabel">This helps us create groups of the same level, for maximum fun and effectiveness!</label>
             <select id="tennis_level" name="tennis_level" required>
                 <option value="">Select tennis level</option>
                 <option value="zero">New - Barely held a racket before!</option>
@@ -48,17 +49,27 @@
                 <option value="advanced">Advanced - Played tennis for a long time, or play competitively</option>
             </select>
 
-            <label for="personality_notes">
+            <label for="time_prefs">
+                Do you have preferred days / times for our weekly sessions? Or dates when you're unavailable?
+            </label>
+            <label for="time_prefs" class="sublabel">
+                Note that the program runs for 4 weeks (and may be extended if rain cancels our sessions).
+                You'd have so much fun you wouldn't want to miss any sessions!
+            </label>
+            <textarea id="time_prefs" name="time_prefs" placeholder="eg Tues / Thurs / Fri 8-10pm, unavailable 18-25 Nov"></textarea>
+
+            <label for="personality_notes" class="required">
                 Can you tell us a bit more about your personality, and also what you're looking for in a potential partner?
             </label>
             <label for="personality_notes" class="sublabel">
-                For example, what's your MBTI type? What makes your heart skip a beat? :) This will help us design the best group for you!
+                For example, what's your MBTI type? What makes your heart skip a beat? :)
+                This will help us design the best group for you!
             </label>
-            <textarea id="personality_notes" name="personality_notes"></textarea>
+            <textarea id="personality_notes" name="personality_notes" required></textarea>
 
             <label for="misc_notes">Anything else you'd like us to know?</label>
-            <label for="misc_notes" class="sublabel">For example, do you have other fun hobbies, personal interests, or fancy skills? :)
-                Or perhaps, any allergies or discomforts?
+            <label for="misc_notes" class="sublabel">For example, do you have other fun hobbies, personal interests,
+                or fancy skills? :) Or perhaps, any allergies or discomforts?
             </label>
             <textarea id="misc_notes" name="misc_notes"></textarea>
 

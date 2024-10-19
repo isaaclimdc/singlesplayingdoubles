@@ -15,6 +15,12 @@ label, .sublabel {
     color: #333;
 }
 
+label.required::after {
+    content: " *";
+    color: red;
+    font-weight: normal;
+}
+
 .sublabel {
     font-weight: normal;
     font-style: italic;

@@ -56,7 +56,7 @@ app.get('/thanks', (req, res) => {
 
 // Handle form submission
 app.post('/register', (req, res) => {
-    const { id, name, age, gender, email, phone, ig_handle, tennis_level, personality_notes, misc_notes } = req.body;
+    const { id, name, age, gender, email, phone, ig_handle, tennis_level, time_prefs, personality_notes, misc_notes } = req.body;
 
     // Define a applicant object
     const applicant = {
@@ -67,6 +67,7 @@ app.post('/register', (req, res) => {
         phone: phone,
         igHandle: ig_handle,
         tennisLevel: tennis_level,
+        timePrefs: time_prefs,
         personalityNotes: personality_notes,
         miscNotes: misc_notes,
 
@@ -76,9 +77,9 @@ app.post('/register', (req, res) => {
     };
 
     const sql = `INSERT INTO applications_v1
-                    (id, name, age, gender, email, phone, ig_handle, tennis_level, personality_notes, misc_notes)
+                    (id, name, age, gender, email, phone, ig_handle, tennis_level, time_prefs, personality_notes, misc_notes)
                 VALUES
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     db.query(sql, [
         uuidv4(),
@@ -89,6 +90,7 @@ app.post('/register', (req, res) => {
         applicant.phone,
         applicant.igHandleClean(),
         applicant.tennisLevel,
+        applicant.timePrefs,
         applicant.personalityNotes,
         applicant.miscNotes,
     ], (err, result) => {
@@ -288,6 +290,10 @@ function sendEmailToOurselves(applicant) {
         <div class="box">
             <h2>Tennis level</h2>
             <p>${applicant.tennisLevel}</p>
+        </div>
+        <div class="box">
+            <h2>Time preferences</h2>
+            <p>${applicant.timePrefs}</p>
         </div>
         <div class="box">
             <h2>Personality notes</h2>
