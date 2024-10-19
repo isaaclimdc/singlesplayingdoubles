@@ -225,24 +225,86 @@ function sendEmailToApplicant(applicant) {
 }
 
 function sendEmailToOurselves(applicant) {
+    let emailTemplate =
+`
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                color: black;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 40px;
+            }
+            h2 {
+                font-size: 1.2em;
+                margin: 0 0 10px 0;
+            }
+            p {
+                margin: 0;
+            }
+            .box {
+                margin: 30px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>New sign up for Singles Playing Doubles!</h1>
+
+        <div class="box">
+            <h2>Name</h2>
+            <p>${applicant.name}</p>
+        </div>
+        <div class="box">
+            <h2>Age</h2>
+            <p>${applicant.age}</p>
+        </div>
+        <div class="box">
+            <h2>Gender</h2>
+            <p>${applicant.gender}</p>
+        </div>
+        <div class="box">
+            <h2>Email</h2>
+            <p>${applicant.email}</p>
+        </div>
+        <div class="box">
+            <h2>Phone</h2>
+            <p>${applicant.phone}</p>
+        </div>
+        <div class="box">
+            <h2>IG handle</h2>
+            <a href="https://www.instagram.com/${applicant.igHandleClean()}">
+                <p>${applicant.igHandleClean()}</p>
+            </a>
+        </div>
+        <div class="box">
+            <h2>Tennis level</h2>
+            <p>${applicant.tennisLevel}</p>
+        </div>
+        <div class="box">
+            <h2>Personality notes</h2>
+            <p>${applicant.personalityNotes}</p>
+        </div>
+        <div class="box">
+            <h2>Misc notes</h2>
+            <p>${applicant.miscNotes}</p>
+        </div>
+    </body>
+</html>
+`;
+
     const mailOptions = {
         from: `"Singles Playing Doubles" <${process.env.SPD_EMAIL_USER}>`,
         to: process.env.OURSELVES_EMAIL,
         subject: 'New sign up!',
-        text:
-        `
-        New sign up for Singles Playing Doubles!
-
-        Name: ${applicant.name}
-        Age: ${applicant.age}
-        Gender: ${applicant.gender}
-        Email: ${applicant.email}
-        Phone: ${applicant.phone}
-        IG handle: ${applicant.igHandleClean()}
-        Tennis level: ${applicant.tennisLevel}
-        Personality notes: ${applicant.personalityNotes}
-        Misc notes: ${applicant.miscNotes}
-        `,
+        html: emailTemplate,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
