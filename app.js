@@ -69,7 +69,6 @@ app.post('/register', (req, res) => {
         tennisLevel: tennis_level,
         personalityNotes: personality_notes,
         miscNotes: misc_notes,
-        createdAt: new Date().toISOString(),
 
         igHandleClean: function() {
             return String(this.igHandle).replace('@', '');
@@ -77,9 +76,9 @@ app.post('/register', (req, res) => {
     };
 
     const sql = `INSERT INTO applications_v1
-                    (id, name, age, gender, email, phone, ig_handle, tennis_level, personality_notes, misc_notes, created_at)
+                    (id, name, age, gender, email, phone, ig_handle, tennis_level, personality_notes, misc_notes)
                 VALUES
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     db.query(sql, [
         uuidv4(),
@@ -92,7 +91,6 @@ app.post('/register', (req, res) => {
         applicant.tennisLevel,
         applicant.personalityNotes,
         applicant.miscNotes,
-        applicant.createdAt,
     ], (err, result) => {
         if (err) {
             console.error('Error inserting data:', err);
