@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
-// const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 const path = require('path');
 
 const app = express();
@@ -16,7 +16,6 @@ const db = mysql.createConnection({
     port: process.env.DB_PORT || 3306 // Default MariaDB port
 });
 
-// Test the database connection
 db.connect((err) => {
     if (err) {
         console.error('Error connecting to MariaDB:', err.stack);
@@ -28,14 +27,16 @@ db.connect((err) => {
 // Middleware for parsing form data
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// // Nodemailer setup (Gmail example)
-// const transporter = nodemailer.createTransport({
-//     service: 'gmail', // e.g., Gmail (you can use any SMTP service provider)
-//     auth: {
-//         user: '', // your email address
-//         pass: '', // your email password (use app password for Gmail)
-//     },
-// });
+// Nodemailer setup
+const transporter = nodemailer.createTransport({
+    host: process.env.SPD_EMAIL_HOST,
+    port: process.env.SPD_EMAIL_PORT || 465,
+    secure: true,
+    auth: {
+        user: process.env.SPD_EMAIL_USER,
+        pass: process.env.SPD_EMAIL_PASS,
+    },
+});
 
 // Middleware to serve static files (CSS, images, JS, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
@@ -55,40 +56,203 @@ app.get('/thanks', (req, res) => {
 app.post('/register', (req, res) => {
     const { name, age, gender, email, phone, ig_handle, tennis_level, personality_notes, misc_notes } = req.body;
 
-    const ig_handle_clean = String(ig_handle).replace('@', '');
-    const createdAt = new Date();
+    // Define a applicant object
+    const applicant = {
+        name: name,
+        age: age,
+        gender: gender,
+        email: email,
+        phone: phone,
+        igHandle: ig_handle,
+        tennisLevel: tennis_level,
+        personalityNotes: personality_notes,
+        miscNotes: misc_notes,
+        createdAt: new Date(),
+
+        igHandleClean: function() {
+            return String(this.igHandle).replace('@', '');
+        },
+    };
 
     const sql = `INSERT INTO applications_v1
                     (name, age, gender, email, phone, ig_handle, tennis_level, personality_notes, misc_notes, created_at)
                 VALUES
                     (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-    db.query(sql, [name, age, gender, email, phone, ig_handle_clean, tennis_level, personality_notes, misc_notes, createdAt], (err, result) => {
+    db.query(sql, [
+        applicant.name,
+        applicant.age,
+        applicant.gender,
+        applicant.email,
+        applicant.phone,
+        applicant.igHandleClean(),
+        applicant.tennisLevel,
+        applicant.personalityNotes,
+        applicant.miscNotes,
+        applicant.createdAt,
+    ], (err, result) => {
         if (err) {
             console.error('Error inserting data:', err);
             res.status(500).send('An error occurred while processing your registration.');
         } else {
+            sendEmailToApplicant(applicant);
+            sendEmailToOurselves(applicant);
             res.redirect('/thanks');
         }
     });
 });
 
-// function sendEmail(email, name) {
-//     const mailOptions = {
-//         from: '',
-//         to: email, // recipient email address (you can also send to a static address or admin)
-//         subject: 'Registration Successful',
-//         text: `${name} registered for Singles Playing Doubles`,
-//     };
+function sendEmailToApplicant(applicant) {
+    let emailTemplate =
+`
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+            .logo {
+                max-width: 100px;
+            }
+            .email-container {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #ffffff;
+            }
+            .header {
+                background-color: #666666;
+                background-image: url('https://singlesplayingdoubles.sg/images/background-faint.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                color: #333;
+                text-align: center;
+                padding: 20px;
+                border-radius: 10px;
+            }
+            h1 {
+                margin: 10px;
+                font-size: 1.6em;
+            }
+            .content {
+                padding: 60px 30px;
+                color: #333;
+            }
+            p {
+                margin: 0 0 20px 0;
+                font-size: 1.0em;
+                line-height: 1.5;
+            }
+            .button {
+                display: inline-block;
+                padding: 15px 30px;
+                margin-top: 10px;
+                background-color: #FF6347;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 1.0em;
+                transition: background-color 0.3s ease;
+            }
+            .button:hover {
+                background-color: #e55347;
+            }
+            .footer {
+                background-color: #f4f4f4;
+                padding: 20px;
+                text-align: center;
+                font-size: 0.8em;
+                border-radius: 10px;
+            }
+            .footer a {
+                color: #666;
+                text-decoration: none;
+            }
+            .footer a:visited {
+                color: #666;
+            }
+            .button a:visited {
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="email-container">
+            <div class="header">
+                <a href="https://singlesplayingdoubles.sg">
+                    <img src="https://singlesplayingdoubles.sg/images/logo.png" alt="Singles Playing Doubles Logo" class="logo">
+                </a>
+                <h1>Thanks for signing up!</h1>
+            </div>
+            <div class="content">
+                <p>Hi ${applicant.name}! </p>
+                <p>
+                    Thanks for signing up for Singles Playing Doubles. We're in the midst of finalising logistics, and
+                    selecting the participants for "Season 1". We'll get back to you with an update.
+                </p>
+                <p>Chat soon!</p>
+                <a href="https://www.instagram.com/singlesplayingdoubles/" class="button">Follow us</a>
+            </div>
+            <div class="footer">
+                <a href="https://singlesplayingdoubles.sg">singlesplayingdoubles.sg</a>
+            </div>
+        </div>
+    </body>
+</html>
+`;
 
-//     transporter.sendMail(mailOptions, (error, info) => {
-//         if (error) {
-//             console.error('Error sending email:', error);
-//         } else {
-//             console.log('Email sent:', info.response);
-//         }
-//     });
-// }
+    const mailOptions = {
+        from: `"Singles Playing Doubles" <${process.env.SPD_EMAIL_USER}>`,
+        to: applicant.email,
+        subject: 'Thank you for registering!',
+        html: emailTemplate,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Error sending email:', error);
+        } else {
+            console.log('Email sent:', info.response);
+        }
+    });
+}
+
+function sendEmailToOurselves(applicant) {
+    const mailOptions = {
+        from: `"Singles Playing Doubles" <${process.env.SPD_EMAIL_USER}>`,
+        to: process.env.OURSELVES_EMAIL,
+        subject: 'New sign up!',
+        text:
+        `
+        New sign up for Singles Playing Doubles!
+
+        Name: ${applicant.name}
+        Age: ${applicant.age}
+        Gender: ${applicant.gender}
+        Email: ${applicant.email}
+        Phone: ${applicant.phone}
+        IG handle: ${applicant.igHandleClean()}
+        Tennis level: ${applicant.tennisLevel}
+        Personality notes: ${applicant.personalityNotes}
+        Misc notes: ${applicant.miscNotes}
+        `,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Error sending email:', error);
+        } else {
+            console.log('Email sent:', info.response);
+        }
+    });
+}
 
 // Start the server
 app.listen(3000, () => {

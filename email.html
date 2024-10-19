@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+            .logo {
+                max-width: 100px;
+            }
+            .email-container {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #ffffff;
+            }
+            .header {
+                background-color: #666666;
+                background-image: url('https://singlesplayingdoubles.sg/images/background-faint.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                color: #333;
+                text-align: center;
+                padding: 20px;
+                border-radius: 10px;
+            }
+            h1 {
+                margin: 10px;
+                font-size: 1.6em;
+            }
+            .content {
+                padding: 60px 30px;
+                color: #333;
+            }
+            p {
+                margin: 0 0 20px 0;
+                font-size: 1.0em;
+                line-height: 1.5;
+            }
+            .button {
+                display: inline-block;
+                padding: 15px 30px;
+                margin-top: 10px;
+                background-color: #FF6347;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 1.0em;
+                transition: background-color 0.3s ease;
+            }
+            .button:hover {
+                background-color: #e55347;
+            }
+            .footer {
+                background-color: #f4f4f4;
+                padding: 20px;
+                text-align: center;
+                font-size: 0.8em;
+                border-radius: 10px;
+            }
+            .footer a {
+                color: #666;
+                text-decoration: none;
+            }
+            .footer a:visited {
+                color: #666;
+            }
+            .button a:visited {
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="email-container">
+            <div class="header">
+                <a href="https://singlesplayingdoubles.sg">
+                    <img src="https://singlesplayingdoubles.sg/images/logo.png" alt="Singles Playing Doubles Logo" class="logo">
+                </a>
+                <h1>Thanks for signing up!</h1>
+            </div>
+            <div class="content">
+                <p>Hi ${applicant.name}! </p>
+                <p>
+                    Thanks for signing up for Singles Playing Doubles. We're in the midst of finalising logistics, and
+                    selecting the participants for "Season 1". We'll get back to you with an update.
+                </p>
+                <p>Chat soon!</p>
+                <a href="https://www.instagram.com/singlesplayingdoubles/" class="button">Follow us</a>
+            </div>
+            <div class="footer">
+                <a href="https://singlesplayingdoubles.sg">singlesplayingdoubles.sg</a>
+            </div>
+        </div>
+    </body>
+</html>
