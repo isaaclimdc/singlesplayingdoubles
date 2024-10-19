@@ -21,7 +21,7 @@
             }
             .header {
                 background-color: #f9eede;
-                background-image: url('https://singlesplayingdoubles.sg/images/background-faint.png');
+                background-image: url('https://singlesplayingdoubles.sg/images/background-faint.jpg');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -73,6 +73,16 @@
             }
             .button a:visited {
                 color: white;
+            }
+            @media (prefers-color-scheme: dark) {
+                .header {
+                    background-color: #7b7064;
+                    background-image: url('https://singlesplayingdoubles.sg/images/background-faint-dark.jpg');
+                    color: white;
+                }
+                .button {
+                    background-color: #cf4a33;
+                }
             }
         </style>
     </head>
