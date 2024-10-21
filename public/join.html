@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Singles Playing Doubles</title>
+    <title>Join Singles Playing Doubles</title>
 
     <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/join.css">
@@ -14,7 +14,8 @@
 </head>
 <body>
     <div class="container">
-        <h2>Join Singles Playing Doubles!</h2>
+        <h1>Join Singles Playing Doubles!</h1>
+
         <form action="/register" method="POST">
             <label for="name" class="required">Let's start with your full name.</label>
             <input type="text" id="name" name="name" placeholder="Natalie Lim" required>
@@ -36,7 +37,7 @@
             <input type="tel" id="phone" name="phone" placeholder="91234567" pattern="[89][0-9]{7}" required>
 
             <label for="ig-handle">What's your Instagram handle?</label>
-            <label for="personality_notes" class="sublabel">This is optional, but helps us create a great group dynamic!</label>
+            <label for="ig-handle" class="sublabel">This is optional, but helps us create a great group dynamic!</label>
             <input type="text" id="ig-handle" name="ig_handle" placeholder="@singlesplayingdoubles">
 
             <label for="tennis_level" class="required">How's your tennis level?</label>
@@ -58,14 +59,25 @@
             </label>
             <textarea id="time_prefs" name="time_prefs" placeholder="eg Tues / Thurs / Fri 8-10pm, unavailable 18-25 Nov"></textarea>
 
-            <label for="personality_notes" class="required">
+            <hr>
+
+            <h2>More about you</h2>
+            <h3>
+                The following questions help us create the best group for you. Your responses won't be shared with others.
+                Help us help you!
+                <br><br>
+                We understand that you may want to edit your responses to the following questions later on, so when you
+                hit "Submit!" below, we'll save what you have, and send you a link to update your responses later.
+            </h3>
+
+            <label for="personality_notes">
                 Can you tell us a bit more about your personality, and also what you're looking for in a potential partner?
             </label>
             <label for="personality_notes" class="sublabel">
                 For example, what's your MBTI type? What makes your heart skip a beat? :)
                 This will help us design the best group for you!
             </label>
-            <textarea id="personality_notes" name="personality_notes" required></textarea>
+            <textarea id="personality_notes" name="personality_notes"></textarea>
 
             <label for="misc_notes">Anything else you'd like us to know?</label>
             <label for="misc_notes" class="sublabel">For example, do you have other fun hobbies, personal interests,

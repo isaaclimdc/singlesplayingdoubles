@@ -50,6 +50,9 @@ app.get('/', (req, res) => {
 app.get('/join', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'join.html'));
 });
+app.get('/join2', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'join2.html'));
+});
 app.get('/thanks', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'thanks.html'));
 });
