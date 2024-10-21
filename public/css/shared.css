@@ -147,6 +147,7 @@ input, select, textarea {
     border: 1px solid #ccc;
     font-size: 1em;
     font-family: "Montserrat", sans-serif;
+    border-radius: 8px;
 }
 
 textarea {
