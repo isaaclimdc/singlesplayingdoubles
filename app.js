@@ -125,6 +125,7 @@ function sendEmailToApplicant(applicant) {
             }
             .logo {
                 max-width: 100px;
+                margin: 0 0 16px 0;
             }
             .email-container {
                 width: 100%;
@@ -134,32 +135,42 @@ function sendEmailToApplicant(applicant) {
             }
             .header {
                 background-color: #f9eede;
-                background-image: url('https://singlesplayingdoubles.sg/images/background-faint.png');
+                background-image: url('https://singlesplayingdoubles.sg/images/background-faint.jpg');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
                 color: #333;
                 text-align: center;
-                padding: 20px;
-                border-radius: 10px;
+                padding: 32px;
+                border-radius: 16px;
             }
             h1 {
-                margin: 10px;
+                margin: 16px 0 0 0;
                 font-size: 1.6em;
             }
             .content {
-                padding: 60px 30px;
+                padding: 32px;
                 color: #333;
             }
+            .content-text {
+                margin: 0 0 16px 0;
+            }
             p {
-                margin: 0 0 20px 0;
+                padding: 8px 0;
+                margin: 0;
                 font-size: 1.0em;
                 line-height: 1.5;
             }
+            p:first-child {
+                padding: 0 0 8px 0;
+            }
+            p:last-child {
+                padding: 8px 0 0 0;
+            }
             .button {
                 display: inline-block;
-                padding: 15px 30px;
-                margin-top: 10px;
+                padding: 16px 32px;
+                margin: 16px 0 0 0;
                 background-color: #FF6347;
                 color: white;
                 text-decoration: none;
@@ -172,10 +183,10 @@ function sendEmailToApplicant(applicant) {
             }
             .footer {
                 background-color: #f4f4f4;
-                padding: 20px;
+                padding: 16px;
                 text-align: center;
                 font-size: 0.8em;
-                border-radius: 10px;
+                border-radius: 16px;
             }
             .footer a {
                 color: #666;
@@ -208,12 +219,14 @@ function sendEmailToApplicant(applicant) {
                 <h1>Thanks for signing up!</h1>
             </div>
             <div class="content">
-                <p>Hi ${applicant.name}! </p>
-                <p>
-                    Thanks for signing up for Singles Playing Doubles. We're in the midst of finalising logistics, and
-                    selecting the participants for "Season 1". We'll get back to you with an update.
-                </p>
-                <p>Chat soon!</p>
+                <div class="content-text">
+                    <p>Hi ${applicant.name}! </p>
+                    <p>
+                        Thanks for signing up for Singles Playing Doubles. We're in the midst of finalising logistics, and
+                        selecting the participants for "Season 1". We'll get back to you with an update.
+                    </p>
+                    <p>Chat soon!</p>
+                </div>
                 <a href="https://www.instagram.com/singlesplayingdoubles/" class="button">Follow us</a>
             </div>
             <div class="footer">
@@ -257,17 +270,21 @@ function sendEmailToOurselves(applicant) {
             }
             h1 {
                 font-size: 1.5em;
-                margin-bottom: 40px;
+                padding: 16px 0;
+                margin: 0
             }
             h2 {
                 font-size: 1.2em;
-                margin: 0 0 10px 0;
+                padding: 0 0 4px 0;
+                margin: 0
             }
             p {
+                padding: 4px 0 0 0;
                 margin: 0;
             }
             .box {
-                margin: 30px 0;
+                padding: 16px 0;
+                margin: 0;
             }
         </style>
     </head>
