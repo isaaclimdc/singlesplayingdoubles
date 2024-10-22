@@ -15,12 +15,57 @@ body {
     background-attachment: fixed;
 }
 
-.container {
-    max-width: 600px;
+.all-container {
+    width: 820px;
+}
+
+.nav, .body-container {
     background-color: rgba(255, 255, 255, 0.8);
-    padding: 48px;
-    margin: 80px;
     border-radius: 8px;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 48px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.nav a {
+    padding: 16px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.0em;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav a:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.nav a.nav-primary {
+    background-color: #FF6347;
+    color: white;
+}
+
+.nav a.nav-primary:hover {
+    background-color: #e55347;
+}
+
+.body-container {
+    padding: 48px;
+    margin-bottom: 32px;
 }
 
 .logo {
@@ -171,10 +216,18 @@ button {
 /* Media query for small screens */
 @media only screen and (max-width: 767px) {
 
-    .container {
+    .all-container {
+        width: 100%;
+    }
+
+    .nav {
+        padding: 8px;
+        margin: 16px;
+    }
+
+    .body-container {
         padding: 32px;
         margin: 16px;
-        width: 100%;
     }
 
     h1 {
@@ -196,8 +249,20 @@ button {
         color: #f1f1f1;
     }
 
-    .container {
+    .nav, .body-container {
         background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .nav a {
+        color: white;
+    }
+
+    .nav a:hover {
+        background-color: #ababab4f;
+    }
+
+    .nav a.nav-primary {
+        background-color: #cf4a33;
     }
 
     h1, h2, h3, a, p, label, .sublabel {
