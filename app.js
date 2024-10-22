@@ -225,7 +225,7 @@ function sendEmailToApplicant(application) {
             }
             h1 {
                 margin: 16px 0 0 0;
-                font-size: 1.6em;
+                font-size: 1.8em;
             }
             .content {
                 padding: 32px;
@@ -245,7 +245,7 @@ function sendEmailToApplicant(application) {
             }
             .button {
                 display: inline-block;
-                padding: 16px 32px;
+                padding: 16px 24px;
                 margin: 16px 0;
                 background-color: #FF6347;
                 color: white;
