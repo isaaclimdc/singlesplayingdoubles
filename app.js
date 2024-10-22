@@ -7,6 +7,7 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
+const port = 3000;
 dotenv.config();
 
 // Connect to MariaDB using environment variables
@@ -58,7 +59,7 @@ app.get('/thanks', (req, res) => {
 });
 
 // Handle form submission
-app.post('/register', (req, res) => {
+app.post('/submit-application', (req, res) => {
     const { id, name, age, gender, email, phone, ig_handle, tennis_level, time_prefs, personality_notes, misc_notes } = req.body;
 
     // Define a applicant object
@@ -79,12 +80,14 @@ app.post('/register', (req, res) => {
         },
     };
 
-    const sql = `INSERT INTO applications_v1
-                    (id, name, age, gender, email, phone, ig_handle, tennis_level, time_prefs, personality_notes, misc_notes)
-                VALUES
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const query = `
+        INSERT INTO applications_v1
+            (id, name, age, gender, email, phone, ig_handle, tennis_level, time_prefs, personality_notes, misc_notes)
+        VALUES
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
 
-    db.query(sql, [
+    db.query(query, [
         uuidv4(),
         applicant.name,
         applicant.age,
@@ -96,13 +99,55 @@ app.post('/register', (req, res) => {
         applicant.timePrefs,
         applicant.personalityNotes,
         applicant.miscNotes,
-    ], (err, result) => {
+    ], (err, queryRes) => {
         if (err) {
             console.error('Error inserting data:', err);
             res.status(500).send('An error occurred while processing your registration.');
         } else {
             sendEmailToApplicant(applicant);
             sendEmailToOurselves(applicant);
+            res.redirect('/thanks');
+        }
+    });
+});
+
+// Route to get application data by ID (for pre-filling the form)
+app.get('/get-application', async (req, res) => {
+    const { application_id } = req.query;
+    
+    if (!application_id) {
+        return res.status(400).json({ error: 'application_id is required' });
+    }
+
+    db.query('SELECT * FROM applications_v1 WHERE id = ?', [application_id], (err, queryRes) => {
+        if (err) {
+            console.error('Error fetching application:', err);
+            res.status(500).json({ error: 'Database error' });
+        } else {
+            if (queryRes.length === 0) {
+                res.status(404).json({ error: 'Application not found' });
+            }
+    
+            res.json(queryRes[0]);
+        }
+    });
+});
+
+// Route to update the application data
+app.post('/update-application', async (req, res) => {
+    const { application_id, time_prefs, personality_notes, misc_notes } = req.body;
+
+    const query = `
+        UPDATE applications_v1
+        SET time_prefs = ?, personality_notes = ?, misc_notes = ?
+        WHERE id = ?
+    `;
+
+    db.query(query, [time_prefs, personality_notes, misc_notes, application_id], (err, queryRes) => {
+        if (err) {
+            console.error('Error updating application:', err);
+            res.status(500).json({ error: 'Database update failed' });
+        } else {
             res.redirect('/thanks');
         }
     });
@@ -354,6 +399,6 @@ function sendEmailToOurselves(applicant) {
 }
 
 // Start the server
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
 });

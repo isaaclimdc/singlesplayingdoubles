@@ -14,34 +14,88 @@
 </head>
 <body>
     <div class="container">
-        <h1>More about you</h1>
-        <p>
-            The following questions help us create the best group for you. Your responses won't be shared with others.
-            Help us help you!
-        </p>
-
-        <form action="/register" method="POST">
-            <div class="input-container">
-                <label for="personality_notes">
-                    Can you tell us a bit more about your personality, and also what you're looking for in a potential partner?
-                </label>
-                <label for="personality_notes" class="sublabel">
-                    For example, what's your MBTI type? What makes your heart skip a beat? :)
-                    This will help us design the best group for you!
-                </label>
-                <textarea id="personality_notes" name="personality_notes"></textarea>
-            </div>
-
-            <div class="input-container">
-                <label for="misc_notes">Anything else you'd like us to know?</label>
-                <label for="misc_notes" class="sublabel">For example, do you have other fun hobbies, personal interests,
-                    or fancy skills? :) Or perhaps, any allergies or discomforts?
-                </label>
-                <textarea id="misc_notes" name="misc_notes"></textarea>
-            </div>
-
-            <button type="submit" class="cta-btn">Update</button>
-        </form>
+        <div id="error-message">
+            No application ID specified.
+        </div>
+        <div id="application-form-container">
+            <h1>More about you</h1>
+            <p>
+                The following questions help us create the best group for you. Your responses won't be shared with others.
+                Help us help you!
+            </p>
+    
+            <form action="/update-application" method="POST">
+                <input type="hidden" name="application_id" id="application_id">
+    
+                <div class="input-container">
+                    <label for="time_prefs">
+                        Do you have preferred days / times for our weekly sessions? Or dates when you're unavailable?
+                    </label>
+                    <label for="time_prefs" class="sublabel">
+                        Note that the program runs for 4 weeks (and may be extended if rain cancels our sessions).
+                        You'd have so much fun you wouldn't want to miss any sessions!
+                    </label>
+                    <textarea id="time_prefs" name="time_prefs" placeholder="eg Tues / Thurs / Fri 8-10pm, unavailable 18-25 Nov"></textarea>
+                </div>
+    
+                <div class="input-container">
+                    <label for="personality_notes">
+                        Can you tell us a bit more about your personality, and also what you're looking for in a potential partner?
+                    </label>
+                    <label for="personality_notes" class="sublabel">
+                        For example, what's your MBTI type? What makes your heart skip a beat? :)
+                        This will help us design the best group for you!
+                    </label>
+                    <textarea id="personality_notes" name="personality_notes"></textarea>
+                </div>
+    
+                <div class="input-container">
+                    <label for="misc_notes">Anything else you'd like us to know?</label>
+                    <label for="misc_notes" class="sublabel">For example, do you have other fun hobbies, personal interests,
+                        or fancy skills? :) Or perhaps, any allergies or discomforts?
+                    </label>
+                    <textarea id="misc_notes" name="misc_notes"></textarea>
+                </div>
+    
+                <button type="submit" class="cta-btn">Update</button>
+            </form>
+        </div>
     </div>
+
+    <script>
+        // Fetch the application_id from the URL query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const application_id = urlParams.get('application_id');
+
+        // Fetch existing data and pre-fill the form
+        if (application_id) {
+            fetch(`/get-application?application_id=${application_id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch application data');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('application_id').value = data.id;
+                    document.getElementById('time_prefs').value = data.time_prefs;
+                    document.getElementById('personality_notes').value = data.personality_notes;
+                    document.getElementById('misc_notes').value = data.misc_notes;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+
+                    // Display error message on the page
+                    const errorMessage = document.getElementById('error-message');
+                    errorMessage.style.display = 'block';
+                    errorMessage.innerHTML = "Sorry, we weren't able to fetch your application data.";
+                    document.getElementById('application-form-container').classList.add('hidden');
+                });
+        } else {
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.style.display = 'block';
+            document.getElementById('application-form-container').classList.add('hidden');
+        }
+    </script>
 </body>
 </html>
