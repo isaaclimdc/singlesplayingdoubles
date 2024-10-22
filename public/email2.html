@@ -31,49 +31,49 @@
         </style>
     </head>
     <body>
-        <h1>New sign up for Singles Playing Doubles!</h1>
+        <h1>${title}</h1>
 
         <div class="box">
             <h2>Name</h2>
-            <p>${applicant.name}</p>
+            <p>${application.name}</p>
         </div>
         <div class="box">
             <h2>Age</h2>
-            <p>${applicant.age}</p>
+            <p>${application.age}</p>
         </div>
         <div class="box">
             <h2>Gender</h2>
-            <p>${applicant.gender}</p>
+            <p>${application.gender}</p>
         </div>
         <div class="box">
             <h2>Email</h2>
-            <p>${applicant.email}</p>
+            <p>${application.email}</p>
         </div>
         <div class="box">
             <h2>Phone</h2>
-            <p>${applicant.phone}</p>
+            <p>${application.phone}</p>
         </div>
         <div class="box">
             <h2>IG handle</h2>
-            <a href="https://www.instagram.com/${applicant.igHandleClean()}">
-                <p>${applicant.igHandleClean()}</p>
+            <a href="https://www.instagram.com/${application.ig_handle}">
+                <p>${application.ig_handle}</p>
             </a>
         </div>
         <div class="box">
             <h2>Tennis level</h2>
-            <p>${applicant.tennisLevel}</p>
+            <p>${application.tennis_level}</p>
         </div>
         <div class="box">
             <h2>Time preferences</h2>
-            <p>${applicant.timePrefs}</p>
+            <p>${application.time_prefs}</p>
         </div>
         <div class="box">
             <h2>Personality notes</h2>
-            <p>${applicant.personalityNotes}</p>
+            <p>${application.personality_notes}</p>
         </div>
         <div class="box">
             <h2>Misc notes</h2>
-            <p>${applicant.miscNotes}</p>
+            <p>${application.misc_notes}</p>
         </div>
     </body>
 </html>

@@ -63,21 +63,18 @@ app.post('/submit-application', (req, res) => {
     const { id, name, age, gender, email, phone, ig_handle, tennis_level, time_prefs, personality_notes, misc_notes } = req.body;
 
     // Define a applicant object
-    const applicant = {
+    const application = {
+        id: uuidv4(),
         name: name,
         age: age,
         gender: gender,
         email: email,
         phone: phone,
-        igHandle: ig_handle,
-        tennisLevel: tennis_level,
-        timePrefs: time_prefs,
-        personalityNotes: personality_notes,
-        miscNotes: misc_notes,
-
-        igHandleClean: function() {
-            return String(this.igHandle).replace('@', '');
-        },
+        ig_handle: String(ig_handle).replace('@', ''),
+        tennis_level: tennis_level,
+        time_prefs: time_prefs,
+        personality_notes: personality_notes,
+        misc_notes: misc_notes,
     };
 
     const query = `
@@ -88,24 +85,24 @@ app.post('/submit-application', (req, res) => {
     `;
 
     db.query(query, [
-        uuidv4(),
-        applicant.name,
-        applicant.age,
-        applicant.gender,
-        applicant.email,
-        applicant.phone,
-        applicant.igHandleClean(),
-        applicant.tennisLevel,
-        applicant.timePrefs,
-        applicant.personalityNotes,
-        applicant.miscNotes,
+        application.id,
+        application.name,
+        application.age,
+        application.gender,
+        application.email,
+        application.phone,
+        application.ig_handle,
+        application.tennis_level,
+        application.time_prefs,
+        application.personality_notes,
+        application.misc_notes,
     ], (err, queryRes) => {
         if (err) {
             console.error('Error inserting data:', err);
             res.status(500).send('An error occurred while processing your registration.');
         } else {
-            sendEmailToApplicant(applicant);
-            sendEmailToOurselves(applicant);
+            sendEmailToApplicant(application);
+            sendEmailToOurselves(application, true);
             res.redirect('/thanks');
         }
     });
@@ -119,19 +116,28 @@ app.get('/get-application', async (req, res) => {
         return res.status(400).json({ error: 'id is required' });
     }
 
+    getApplicationById(id, (application, error, status_code) => {
+        if (error) {
+            return res.status(status_code).json({ error });
+        }
+    
+        res.json(application);
+    });
+});
+
+function getApplicationById(id, callback) {
     db.query('SELECT * FROM applications_v1 WHERE id = ?', [id], (err, queryRes) => {
         if (err) {
             console.error('Error fetching application:', err);
-            res.status(500).json({ error: 'Database error' });
+            callback(null, 'Database error', 500);
         } else {
             if (queryRes.length === 0) {
-                res.status(404).json({ error: 'Application not found' });
+                callback(null, 'Application not found', 404);
             }
-    
-            res.json(queryRes[0]);
+            callback(queryRes[0], null, 200);
         }
     });
-});
+}
 
 // Route to update the application data
 app.post('/update-application', async (req, res) => {
@@ -148,12 +154,15 @@ app.post('/update-application', async (req, res) => {
             console.error('Error updating application:', err);
             res.status(500).json({ error: 'Database update failed' });
         } else {
-            res.redirect('/thanks');
+            getApplicationById(application_id, (application, error, status_code) => {           
+                sendEmailToOurselves(application, false);
+                res.redirect('/thanks');
+            });
         }
     });
 });
 
-function sendEmailToApplicant(applicant) {
+function sendEmailToApplicant(application) {
     let emailTemplate =
 `
 <!DOCTYPE html>
@@ -251,16 +260,20 @@ function sendEmailToApplicant(applicant) {
                 <a href="https://singlesplayingdoubles.sg">
                     <img src="https://singlesplayingdoubles.sg/images/logo.png" alt="Singles Playing Doubles Logo" class="logo">
                 </a>
-                <h1>Thanks for signing up!</h1>
+                <h1>Thanks for registering!</h1>
             </div>
             <div class="content">
                 <div class="content-text">
-                    <p>Hi ${applicant.name}! </p>
+                    <p>Hi ${application.name}! </p>
                     <p>
-                        Thanks for signing up for Singles Playing Doubles. We're in the midst of finalising logistics, and
-                        selecting the participants for "Season 1". We'll get back to you with an update.
+                        Thanks for applying for Singles Playing Doubles. We're in the midst of finalising logistics, and
+                        selecting the participants for the upcoming season.
                     </p>
-                    <p>Chat soon!</p>
+                    <p>
+                        Click <a href="https://singlesplayingdoubles.sg/join2?id=${application.id}">here</a>
+                        to update responses in your application. This link is unique to you, so please don't send it to others.
+                    </p>
+                    <p>We'll get back to you with an update soon. In the meanwhile, please follow us on Instagram!</p>
                 </div>
                 <a href="https://www.instagram.com/singlesplayingdoubles/" class="button">Follow us</a>
             </div>
@@ -274,8 +287,8 @@ function sendEmailToApplicant(applicant) {
 
     const mailOptions = {
         from: `"Singles Playing Doubles" <${process.env.SPD_EMAIL_USER}>`,
-        to: applicant.email,
-        subject: 'Thank you for registering!',
+        to: application.email,
+        subject: 'Thanks for registering!',
         html: emailTemplate,
     };
 
@@ -288,7 +301,14 @@ function sendEmailToApplicant(applicant) {
     });
 }
 
-function sendEmailToOurselves(applicant) {
+function sendEmailToOurselves(application, isNew) {
+    const subject = `${application.name} registered!`
+    if (isNew) {
+        title = `New registration from ${application.name}!`
+    } else {
+        title = `${application.name}'s updated application`
+    }
+
     let emailTemplate =
 `
 <!DOCTYPE html>
@@ -324,49 +344,49 @@ function sendEmailToOurselves(applicant) {
         </style>
     </head>
     <body>
-        <h1>New sign up for Singles Playing Doubles!</h1>
+        <h1>${title}</h1>
 
         <div class="box">
             <h2>Name</h2>
-            <p>${applicant.name}</p>
+            <p>${application.name}</p>
         </div>
         <div class="box">
             <h2>Age</h2>
-            <p>${applicant.age}</p>
+            <p>${application.age}</p>
         </div>
         <div class="box">
             <h2>Gender</h2>
-            <p>${applicant.gender}</p>
+            <p>${application.gender}</p>
         </div>
         <div class="box">
             <h2>Email</h2>
-            <p>${applicant.email}</p>
+            <p>${application.email}</p>
         </div>
         <div class="box">
             <h2>Phone</h2>
-            <p>${applicant.phone}</p>
+            <p>${application.phone}</p>
         </div>
         <div class="box">
             <h2>IG handle</h2>
-            <a href="https://www.instagram.com/${applicant.igHandleClean()}">
-                <p>${applicant.igHandleClean()}</p>
+            <a href="https://www.instagram.com/${application.ig_handle}">
+                <p>${application.ig_handle}</p>
             </a>
         </div>
         <div class="box">
             <h2>Tennis level</h2>
-            <p>${applicant.tennisLevel}</p>
+            <p>${application.tennis_level}</p>
         </div>
         <div class="box">
             <h2>Time preferences</h2>
-            <p>${applicant.timePrefs}</p>
+            <p>${application.time_prefs}</p>
         </div>
         <div class="box">
             <h2>Personality notes</h2>
-            <p>${applicant.personalityNotes}</p>
+            <p>${application.personality_notes}</p>
         </div>
         <div class="box">
             <h2>Misc notes</h2>
-            <p>${applicant.miscNotes}</p>
+            <p>${application.misc_notes}</p>
         </div>
     </body>
 </html>
@@ -375,7 +395,7 @@ function sendEmailToOurselves(applicant) {
     const mailOptions = {
         from: `"Singles Playing Doubles" <${process.env.SPD_EMAIL_USER}>`,
         to: process.env.OURSELVES_EMAIL,
-        subject: 'New sign up!',
+        subject: subject,
         html: emailTemplate,
     };
 

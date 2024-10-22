@@ -95,6 +95,7 @@ p:first-child {
 
 .cta-btn:hover {
     background-color: #e55347;
+    cursor: pointer;
 }
 
 hr {
