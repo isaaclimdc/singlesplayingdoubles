@@ -206,9 +206,6 @@ function sendEmailToApplicant(application) {
                 padding: 32px;
                 color: #333;
             }
-            .content-text {
-                margin: 0 0 16px 0;
-            }
             p {
                 padding: 8px 0;
                 margin: 0;
@@ -224,7 +221,7 @@ function sendEmailToApplicant(application) {
             .button {
                 display: inline-block;
                 padding: 16px 32px;
-                margin: 16px 0 0 0;
+                margin: 16px 0;
                 background-color: #FF6347;
                 color: white;
                 text-decoration: none;
@@ -263,19 +260,20 @@ function sendEmailToApplicant(application) {
                 <h1>Thanks for registering!</h1>
             </div>
             <div class="content">
-                <div class="content-text">
-                    <p>Hi ${application.name}! </p>
-                    <p>
-                        Thanks for applying for Singles Playing Doubles. We're in the midst of finalising logistics, and
-                        selecting the participants for the upcoming season.
-                    </p>
-                    <p>
-                        Click <a href="https://singlesplayingdoubles.sg/join2?id=${application.id}">here</a>
-                        to update responses in your application. This link is unique to you, so please don't send it to others.
-                    </p>
-                    <p>We'll get back to you with an update soon. In the meanwhile, please follow us on Instagram!</p>
-                </div>
+                <p>Hi ${application.name}, </p>
+                <p>
+                    Thanks for applying for Singles Playing Doubles! We're in the midst of finalising logistics, and
+                    selecting the participants for the upcoming season. Please hang tight, and we'll get back to you with
+                    an update soon.
+                </p>
+                <p>
+                    In the meanwhile, please follow us on Instagram!
+                </p>
                 <a href="https://www.instagram.com/singlesplayingdoubles/" class="button">Follow us</a>
+                <p>
+                    Oh and by the way, please use <a href="https://singlesplayingdoubles.sg/join2?id=${application.id}">this link</a>
+                    to update responses in your application. This link is unique to you, so please don't send it to others!
+                </p>
             </div>
             <div class="footer">
                 <a href="https://singlesplayingdoubles.sg">singlesplayingdoubles.sg</a>
