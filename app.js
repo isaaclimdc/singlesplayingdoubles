@@ -221,7 +221,7 @@ function sendEmailToApplicant(application) {
             .button {
                 display: inline-block;
                 padding: 16px 32px;
-                margin: 16px 0;
+                margin: 16px 0 0 0;
                 background-color: #FF6347;
                 color: white;
                 text-decoration: none;
@@ -262,18 +262,18 @@ function sendEmailToApplicant(application) {
             <div class="content">
                 <p>Hi ${application.name}, </p>
                 <p>
-                    Thanks for applying for Singles Playing Doubles! We're in the midst of finalising logistics, and
+                    Thanks for registering for Singles Playing Doubles! We're in the midst of finalising logistics, and
                     selecting the participants for the upcoming season. Please hang tight, and we'll get back to you with
                     an update soon.
                 </p>
                 <p>
-                    In the meanwhile, please follow us on Instagram!
+                    In the meanwhile, please <a href="https://www.instagram.com/singlesplayingdoubles/">follow us on Instagram</a>!
                 </p>
-                <a href="https://www.instagram.com/singlesplayingdoubles/" class="button">Follow us</a>
                 <p>
-                    Oh and by the way, please use <a href="https://singlesplayingdoubles.sg/join2?id=${application.id}">this link</a>
-                    to update responses in your application. This link is unique to you, so please don't send it to others!
+                    Oh and by the way, use the button below to update responses in your application.
+                    Note that this link is unique to you, so please don't send it to others!
                 </p>
+                <a href="https://singlesplayingdoubles.sg/join2?id=${application.id}" class="button">Update responses</a>
             </div>
             <div class="footer">
                 <a href="https://singlesplayingdoubles.sg">singlesplayingdoubles.sg</a>
