@@ -60,9 +60,25 @@ app.get('/thanks', (req, res) => {
 
 // Handle form submission
 app.post('/submit-application', (req, res) => {
-    const { id, name, age, gender, email, phone, ig_handle, tennis_level, time_prefs, personality_notes, misc_notes } = req.body;
+    const {
+        id,
+        name,
+        age,
+        gender,
+        email,
+        phone,
+        ig_handle,
+        tennis_level,
+        time_prefs,
+        personality_notes,
+        misc_notes,
+        utm_source,
+        utm_medium,
+        utm_campaign,
+        referrer,
+    } = req.body;
 
-    // Define a applicant object
+    // Define a application object
     const application = {
         id: uuidv4(),
         name: name,
@@ -75,13 +91,18 @@ app.post('/submit-application', (req, res) => {
         time_prefs: time_prefs,
         personality_notes: personality_notes,
         misc_notes: misc_notes,
+        utm_source: utm_source,
+        utm_medium: utm_medium,
+        utm_campaign: utm_campaign,
+        referrer: referrer,
     };
 
     const query = `
         INSERT INTO applications_v1
-            (id, name, age, gender, email, phone, ig_handle, tennis_level, time_prefs, personality_notes, misc_notes)
+            (id, name, age, gender, email, phone, ig_handle, tennis_level, time_prefs, personality_notes, misc_notes,
+            utm_source, utm_medium, utm_campaign, referrer)
         VALUES
-            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(query, [
@@ -96,6 +117,10 @@ app.post('/submit-application', (req, res) => {
         application.time_prefs,
         application.personality_notes,
         application.misc_notes,
+        application.utm_source,
+        application.utm_medium,
+        application.utm_campaign,
+        application.referrer,
     ], (err, queryRes) => {
         if (err) {
             console.error('Error inserting data:', err);
@@ -221,7 +246,7 @@ function sendEmailToApplicant(application) {
             .button {
                 display: inline-block;
                 padding: 16px 32px;
-                margin: 16px 0 0 0;
+                margin: 16px 0;
                 background-color: #FF6347;
                 color: white;
                 text-decoration: none;
@@ -267,13 +292,14 @@ function sendEmailToApplicant(application) {
                     an update soon.
                 </p>
                 <p>
-                    In the meanwhile, please <a href="https://www.instagram.com/singlesplayingdoubles/">follow us on Instagram</a>!
+                    In the meanwhile, please follow us on Instagram!
                 </p>
+                <a href="https://www.instagram.com/singlesplayingdoubles/" class="button">Follow us</a>
                 <p>
-                    Oh and by the way, use the button below to update responses in your application.
-                    Note that this link is unique to you, so please don't send it to others!
+                    Oh and by the way, use <a href="https://singlesplayingdoubles.sg/join2?id=${application.id}">this link</a>
+                    to update responses in your application. Note that this link is unique to you, so please don't send it to others!
                 </p>
-                <a href="https://singlesplayingdoubles.sg/join2?id=${application.id}" class="button">Update responses</a>
+                
             </div>
             <div class="footer">
                 <a href="https://singlesplayingdoubles.sg">singlesplayingdoubles.sg</a>
@@ -385,6 +411,22 @@ function sendEmailToOurselves(application, isNew) {
         <div class="box">
             <h2>Misc notes</h2>
             <p>${application.misc_notes}</p>
+        </div>
+        <div class="box">
+            <h2>UTM source</h2>
+            <p>${application.utm_source}</p>
+        </div>
+        <div class="box">
+            <h2>UTM medium</h2>
+            <p>${application.utm_medium}</p>
+        </div>
+        <div class="box">
+            <h2>UTM campaign</h2>
+            <p>${application.utm_campaign}</p>
+        </div>
+        <div class="box">
+            <h2>Referrer</h2>
+            <p>${application.referrer}</p>
         </div>
     </body>
 </html>

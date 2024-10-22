@@ -111,8 +111,34 @@
                 <textarea id="misc_notes" name="misc_notes"></textarea>
             </div>
 
+            <input type="hidden" id="utm_source" name="utm_source">
+            <input type="hidden" id="utm_medium" name="utm_medium">
+            <input type="hidden" id="utm_campaign" name="utm_campaign">
+            <input type="hidden" id="referrer" name="referrer">
+
             <button type="submit" class="cta-btn">Submit!</button>
         </form>
     </div>
+
+    <!-- First load tracking.js, then prefill form -->
+    <script src="scripts/tracking.js"></script>
+    <script>
+        // Retrieve UTM params and referrer from localStorage
+        function getTrackingDataFromStorage() {
+            return {
+                utm_source: localStorage.getItem('utm_source') || '',
+                utm_medium: localStorage.getItem('utm_medium') || '',
+                utm_campaign: localStorage.getItem('utm_campaign') || '',
+                referrer: localStorage.getItem('referrer') || ''
+            };
+        }
+    
+        // Pre-fill hidden form fields with the tracking data
+        const trackingData = getTrackingDataFromStorage();
+        document.getElementById('utm_source').value = trackingData.utm_source;
+        document.getElementById('utm_medium').value = trackingData.utm_medium;
+        document.getElementById('utm_campaign').value = trackingData.utm_campaign;
+        document.getElementById('referrer').value = trackingData.referrer;
+    </script>
 </body>
 </html>
