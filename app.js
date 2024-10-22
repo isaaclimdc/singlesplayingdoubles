@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const { SitemapStream, streamToPromise } = require('sitemap');
 
 const app = express();
 const port = 3000;
@@ -58,7 +59,27 @@ app.get('/thanks', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'thanks.html'));
 });
 
-// Handle form submission
+app.get('/sitemap.xml', async (req, res) => {
+    try {
+        const sitemap = new SitemapStream({ hostname: 'https://singlesplayingdoubles.sg' });
+        
+        // Add URLs to the sitemap
+        sitemap.write({ url: '/', changefreq: 'monthly', priority: 1.0 });
+        sitemap.write({ url: '/join', changefreq: 'monthly', priority: 0.8 });
+        // Add more pages dynamically or manually
+
+        sitemap.end();
+
+        const xml = await streamToPromise(sitemap);
+        res.header('Content-Type', 'application/xml');
+        res.send(xml.toString());
+    } catch (error) {
+        console.error('Error generating sitemap:', error);
+        res.status(500).send('Error generating sitemap');
+    }
+});
+
+// Initial form submission
 app.post('/submit-application', (req, res) => {
     const {
         id,
