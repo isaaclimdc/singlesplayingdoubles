@@ -113,13 +113,13 @@ app.post('/submit-application', (req, res) => {
 
 // Route to get application data by ID (for pre-filling the form)
 app.get('/get-application', async (req, res) => {
-    const { application_id } = req.query;
+    const { id } = req.query;
     
-    if (!application_id) {
-        return res.status(400).json({ error: 'application_id is required' });
+    if (!id) {
+        return res.status(400).json({ error: 'id is required' });
     }
 
-    db.query('SELECT * FROM applications_v1 WHERE id = ?', [application_id], (err, queryRes) => {
+    db.query('SELECT * FROM applications_v1 WHERE id = ?', [id], (err, queryRes) => {
         if (err) {
             console.error('Error fetching application:', err);
             res.status(500).json({ error: 'Database error' });

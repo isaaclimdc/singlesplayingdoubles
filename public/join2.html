@@ -14,8 +14,8 @@
 </head>
 <body>
     <div class="container">
-        <div id="error-message">
-            No application ID specified.
+        <div id="error">
+            Nothing to see here!
         </div>
         <div id="application-form-container">
             <h1>More about you</h1>
@@ -24,7 +24,7 @@
                 Help us help you!
             </p>
     
-            <form action="/update-application" method="POST">
+            <form id="update-application-form" action="/update-application" method="POST">
                 <input type="hidden" name="application_id" id="application_id">
     
                 <div class="input-container">
@@ -65,11 +65,11 @@
     <script>
         // Fetch the application_id from the URL query string
         const urlParams = new URLSearchParams(window.location.search);
-        const application_id = urlParams.get('application_id');
+        const application_id = urlParams.get('id');
 
         // Fetch existing data and pre-fill the form
         if (application_id) {
-            fetch(`/get-application?application_id=${application_id}`)
+            fetch(`/get-application?id=${application_id}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Failed to fetch application data');
@@ -85,16 +85,15 @@
                 .catch(error => {
                     console.error('Error:', error);
 
-                    // Display error message on the page
-                    const errorMessage = document.getElementById('error-message');
+                    // Display only error message
+                    const errorMessage = document.getElementById('error');
                     errorMessage.style.display = 'block';
                     errorMessage.innerHTML = "Sorry, we weren't able to fetch your application data.";
                     document.getElementById('application-form-container').classList.add('hidden');
                 });
         } else {
-            const errorMessage = document.getElementById('error-message');
-            errorMessage.style.display = 'block';
-            document.getElementById('application-form-container').classList.add('hidden');
+            // No application id - load join page
+            window.location.href = '/join';
         }
     </script>
 </body>
