@@ -206,6 +206,7 @@ button {
 
 #error {
     display: none;
+    text-align: center;
 }
 
 .hidden {
