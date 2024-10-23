@@ -193,6 +193,13 @@ input, select, textarea {
     font-size: 1em;
     font-family: "Montserrat", sans-serif;
     border-radius: 8px;
+    color: #333;
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #FF6347;
+    box-shadow: 0 0 3px #FF6347;
 }
 
 textarea {
