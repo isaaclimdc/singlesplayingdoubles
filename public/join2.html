@@ -16,27 +16,27 @@
 </head>
 <body>
     <div class="all-container">
-        <div class="nav">
+        <div class="container-box nav">
             <a href="/">Home</a>
             <a href="/pricing">Pricing</a>
             <a href="/contact">Contact</a>
             <a href="/join" class="nav-primary">Join</a>
         </div>
 
-        <div class="body-container">
+        <div class="container-box hero">
+            <img src="images/logo.png" alt="Singles Playing Doubles Logo" class="hero-item hero-logo">
+            <div class="hero-item">
+                <h1>More about you</h1>
+                <h3>Update your responses</h3>
+            </div>
+        </div>
+
+        <div class="container-box body-container">
             <div id="error">
                 Nothing to see here!
             </div>
-            <div id="application-form-container">
-                <h1>More about you</h1>
-                <p>
-                    The following questions help us create the best group for you. Your responses won't be shared with others.
-                    Help us help you!
-                </p>
-        
-                <form id="update-application-form" action="/update-application" method="POST">
-                    <input type="hidden" name="application_id" id="application_id">
-        
+            <div id="application-form-container">        
+                <form id="update-application-form" action="/update-application" method="POST">        
                     <div class="input-container">
                         <label for="time_prefs">
                             Do you have preferred days / times for our weekly sessions? Or dates when you're unavailable?
@@ -66,8 +66,10 @@
                         </label>
                         <textarea id="misc_notes" name="misc_notes"></textarea>
                     </div>
+
+                    <input type="hidden" name="application_id" id="application_id">
         
-                    <button type="submit" class="cta-btn">Update</button>
+                    <button type="submit" class="cta-btn form-btn">Update</button>
                 </form>
             </div>
         </div>

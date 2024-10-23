@@ -12,8 +12,6 @@ function getUTMParameters() {
 function saveTrackingData() {
     const utmParams = getUTMParameters();
     const referrer = document.referrer || '';
-    console.log(utmParams);
-    console.log(referrer);
 
     // Check if UTM parameters are present in the URL
     if (utmParams.utm_source || utmParams.utm_medium || utmParams.utm_campaign) {

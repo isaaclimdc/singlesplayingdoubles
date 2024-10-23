@@ -16,21 +16,33 @@ body {
 }
 
 .all-container {
-    width: 820px;
+    width: 1024px;
+    display: grid;
+    padding: 32px 80px;
 }
 
-.nav, .body-container {
+.container-box {
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 8px;
-    margin-left: 80px;
-    margin-right: 80px;
     overflow: hidden;
+    padding: 48px;
+    margin: 8px 0;
+}
+.container-box:first-child {
+    margin-top: 0;
+}
+.container-box:last-child {
+    margin-bottom: 0;
 }
 
 .nav {
     display: flex;
-    margin-top: 32px;
-    margin-bottom: 32px;
+    padding: 0;
+}
+
+.hero {
+    display: block;
+    text-align: center;
 }
 
 .nav a {
@@ -62,17 +74,6 @@ body {
     background-color: #e55347;
 }
 
-.body-container {
-    padding: 48px;
-    margin-bottom: 32px;
-}
-
-.logo {
-    display: block;
-    max-width: 150px;
-    margin: 0 auto 16px auto;
-}
-
 h1 {
     font-family: "Lora", serif;
     font-size: 2.5em;
@@ -81,9 +82,11 @@ h1 {
     padding: 16px 0;
     margin: 0;
 }
-
 h1:first-child {
-    padding: 0 0 16px 0;
+    padding-top: 0;
+}
+h1:last-child {
+    padding-bottom: 0;
 }
 
 h2 {
@@ -93,9 +96,11 @@ h2 {
     padding: 16px 0;
     margin: 0;
 }
-
 h2:first-child {
-    padding: 0 0 16px 0;
+    padding-top: 0;
+}
+h2:last-child {
+    padding-bottom: 0;
 }
 
 h3 {
@@ -107,9 +112,11 @@ h3 {
     margin: 0;
     text-align: center;
 }
-
 h3:first-child {
-    padding: 0 0 16px 0;
+    padding-top: 0;
+}
+h3:last-child {
+    padding-bottom: 0;
 }
 
 p {
@@ -118,15 +125,40 @@ p {
     padding: 16px 0;
     margin: 0;
 }
-
 p:first-child {
-    margin: 0 0 16px 0;
+    padding-top: 0;
+}
+p:last-child {
+    padding-bottom: 0;
+}
+
+.hero-item {
+    margin: 16px 0;
+}
+.hero-item:first-child {
+    margin-top: 0;
+}
+.hero-item:last-child {
+    margin-bottom: 0;
+}
+
+.hero-logo {
+    max-width: 150px;
+    margin-bottom: 0;
+}
+
+.hero-item h1 {
+    padding-bottom: 4px;
+}
+
+.hero-item h3 {
+    padding-top: 4px;
 }
 
 .cta-btn {
-    display: block;
+    display: inline-block;
     padding: 16px 32px;
-    margin: 16px auto 0 auto;
+    margin: 16px 0 0 0;
     background-color: #FF6347;
     color: white;
     text-decoration: none;
@@ -147,22 +179,51 @@ p:first-child {
     cursor: default;
 }
 
-hr {
-    margin: 16px 0;
+/* Steps */
+
+.steps {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
-form {
-    padding: 16px 0 0 0;
+.step {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.step-icon {
+    font-size: 50px;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+/* Form */
+
+.form-btn {
+    display: block;
+    margin: 16px auto 0 auto;
+}
+
+hr {
+    margin: 16px 0;
+    background-color: #686868;
 }
 
 .input-container {
     padding: 16px 0;
 }
-
-.input-container:first-child {
-    padding: 0 0 16px 0;
+.input-container:first-of-type {
+    padding-top: 0;
 }
-
+.input-container:last-of-type {
+    padding-bottom: 0;
+}
 
 label, .sublabel {
     display: block;
@@ -230,15 +291,11 @@ button {
 
     .all-container {
         width: 100%;
+        padding: 16px;
     }
 
-    .nav {
-        margin: 16px;
-    }
-
-    .body-container {
-        padding: 32px;
-        margin: 16px;
+    .container-box:not(.nav) {
+        padding: 24px;
     }
 
     h1 {

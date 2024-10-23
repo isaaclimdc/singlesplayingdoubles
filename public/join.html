@@ -20,16 +20,22 @@
 </head>
 <body>
     <div class="all-container">
-        <div class="nav">
+        <div class="container-box nav">
             <a href="/">Home</a>
             <a href="/pricing">Pricing</a>
             <a href="/contact">Contact</a>
             <a href="/join" class="nav-primary">Join</a>
         </div>
 
-        <div class="body-container">
-            <h1>Join Singles Playing Doubles!</h1>
-    
+        <div class="container-box hero">
+            <img src="images/logo.png" alt="Singles Playing Doubles Logo" class="hero-item hero-logo">
+            <div class="hero-item">
+                <h1>Join Singles Playing Doubles!</h1>
+                <h3>We're currently taking applications for Season 1.</h3>
+            </div>
+        </div>
+
+        <div class="container-box body-container">
             <form id="application-form" action="/submit-application" method="POST">
                 <div class="input-container">
                     <label for="name" class="required">Let's start with your full name.</label>
@@ -88,9 +94,9 @@
                     </label>
                     <textarea id="time_prefs" name="time_prefs" placeholder="eg Tues / Thurs / Fri 8-10pm, unavailable 18-25 Nov"></textarea>
                 </div>
-                
-                <hr>
-    
+            </div>
+            
+            <div class="container-box body-container">
                 <h2>More about you</h2>
                 <p>
                     The following questions help us create the best group for you. Your responses won't be shared with others.
@@ -124,7 +130,7 @@
                 <input type="hidden" id="utm_campaign" name="utm_campaign">
                 <input type="hidden" id="referrer" name="referrer">
     
-                <button type="submit" class="cta-btn" id="form-submit">Submit!</button>
+                <button type="submit" class="cta-btn form-btn" id="apply-submit-btn">Submit!</button>
             </form>
         </div>
     </div>
@@ -154,7 +160,7 @@
         const isProduction = window.location.hostname === 'singlesplayingdoubles.sg';
 
         window.onload = function () {
-            const button = document.getElementById('form-submit');
+            const button = document.getElementById('apply-submit-btn');
             if (isProduction) {
                 button.disabled = true;
             }
