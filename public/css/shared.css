@@ -111,7 +111,6 @@ h3 {
     font-size: 1.2em;
     padding: 16px 0;
     margin: 0;
-    text-align: center;
 }
 h3:first-child {
     padding-top: 0;
@@ -182,23 +181,20 @@ p:last-child {
 
 /* Steps */
 
-.steps {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+.intro-steps {
+    display: grid;
+    padding: 0 64px;
 }
 
-.step {
+.intro-step {
     background-color: #fff;
     border-radius: 10px;
-    padding: 20px;
-    margin: 20px;
-    width: 250px;
+    padding: 32px;
+    margin: 16px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
 }
 
-.step-icon {
+.intro-step-icon {
     font-size: 50px;
     color: #007bff;
     margin-bottom: 15px;
@@ -297,6 +293,15 @@ button {
 
     .container-box:not(.nav) {
         padding: 24px;
+    }
+
+    .intro-steps {
+        padding: 0;
+    }
+    
+    .intro-step {
+        padding: 16px;
+        margin: 8px auto;
     }
 
     h1 {
