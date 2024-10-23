@@ -181,23 +181,48 @@ p:last-child {
 
 /* Steps */
 
-.intro-steps {
-    display: grid;
-    padding: 0 96px;
+.intro-step-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
 }
 
 .intro-step {
+    flex: 1;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 32px;
-    margin: 16px auto;
+    margin: 8px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .intro-step-icon {
     font-size: 50px;
     color: #007bff;
-    margin-bottom: 15px;
+    margin: 0 0 16px 0;
+}
+
+.intro-step h2, .intro-step p {
+    margin: 0;
+}
+
+#intro-step-1 {
+    background-color: white;
+}
+#intro-step-2 {
+    background-color: #ffe8e4;
+}
+#intro-step-3 {
+    background-color: #ffb6a7;
+}
+#intro-step-4 {
+    background-color: #ff9684;
+}
+#intro-step-5 {
+    background-color: #FF6347;
+}
+#intro-step-5 p, #intro-step-5 h2 {
+    color: white;
 }
 
 /* Form */
@@ -295,13 +320,15 @@ button {
         padding: 24px;
     }
 
-    .intro-steps {
+    .intro-step-row {
         padding: 0;
+        flex-direction: column;
+        margin: 8px 0;
     }
     
     .intro-step {
         padding: 16px;
-        margin: 8px auto;
+        margin: 8px 0;
     }
 
     h1 {
@@ -317,8 +344,10 @@ button {
 /* Media query for medium screens */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     
-    .intro-steps {
+    .intro-step-row {
         padding: 0 32px;
+        flex-direction: column;
+        margin-bottom: 16px;
     }
 
 }
@@ -332,7 +361,7 @@ button {
         color: #f1f1f1;
     }
 
-    .nav, .body-container {
+    .container-box {
         background-color: rgba(0, 0, 0, 0.4);
     }
 
@@ -345,6 +374,22 @@ button {
     }
 
     .nav a.nav-primary {
+        background-color: #cf4a33;
+    }
+
+    #intro-step-1 {
+        background-color: black;
+    }
+    #intro-step-2 {
+        background-color: #3b302e
+    }
+    #intro-step-3 {
+        background-color: #6c463f
+    }
+    #intro-step-4 {
+        background-color: #9c5346;
+    }
+    #intro-step-5 {
         background-color: #cf4a33;
     }
 
