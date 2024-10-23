@@ -124,7 +124,7 @@
                 <input type="hidden" id="utm_campaign" name="utm_campaign">
                 <input type="hidden" id="referrer" name="referrer">
     
-                <button type="submit" class="cta-btn">Submit!</button>
+                <button type="submit" class="cta-btn" id="form-submit">Submit!</button>
             </form>
         </div>
     </div>
@@ -148,6 +148,17 @@
         document.getElementById('utm_medium').value = trackingData.utm_medium;
         document.getElementById('utm_campaign').value = trackingData.utm_campaign;
         document.getElementById('referrer').value = trackingData.referrer;
+    </script>
+    <script>
+        // Check if the app is running in production and if so disable the submit button
+        const isProduction = window.location.hostname === 'www.singlesplayingdoubles.sg';
+
+        window.onload = function () {
+            const button = document.getElementById('form-submit');
+            if (isProduction) {
+                button.disabled = true;
+            }
+        };
     </script>
 </body>
 </html>

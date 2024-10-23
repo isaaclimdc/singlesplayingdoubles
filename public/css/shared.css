@@ -142,6 +142,11 @@ p:first-child {
     cursor: pointer;
 }
 
+.cta-btn:disabled {
+    background-color: #797979;
+    cursor: default;
+}
+
 hr {
     margin: 16px 0;
 }
