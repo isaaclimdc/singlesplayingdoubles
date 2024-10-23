@@ -183,7 +183,7 @@ p:last-child {
 
 .intro-steps {
     display: grid;
-    padding: 0 64px;
+    padding: 0 96px;
 }
 
 .intro-step {
@@ -310,6 +310,15 @@ button {
 
     h2 {
         font-size: 1.7em;
+    }
+
+}
+
+/* Media query for medium screens */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    
+    .intro-steps {
+        padding: 0 32px;
     }
 
 }
