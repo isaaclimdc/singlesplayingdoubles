@@ -52,6 +52,12 @@ app.get('/', (req, res) => {
 app.get('/join', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'join.html'));
 });
+app.get('/pricing', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pricing.html'));
+});
+app.get('/contact', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'contact.html'));
+});
 app.get('/join2', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'join2.html'));
 });
@@ -66,8 +72,6 @@ app.get('/sitemap.xml', async (req, res) => {
         // Add URLs to the sitemap
         sitemap.write({ url: '/', changefreq: 'monthly', priority: 1.0 });
         sitemap.write({ url: '/join', changefreq: 'monthly', priority: 0.8 });
-        // Add more pages dynamically or manually
-
         sitemap.end();
 
         const xml = await streamToPromise(sitemap);
