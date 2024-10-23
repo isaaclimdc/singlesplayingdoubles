@@ -6,13 +6,13 @@ body {
     align-items: center;
     width: 100%;
     margin: 0;
-    
-    background-color: #f9f9f9;
-    background-image: url('../images/background.jpg');
-    background-size: cover;
-    background-position: center;
+
+    background-color: #003c51;
+    background-image: url('../images/bkg-blue-court.jpg');
+    /* Rights to https://www.pexels.com/photo/tennis-balls-at-court-27064360/ */
+    background-size: 100% auto;
+    background-position: top center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
 .all-container {
@@ -356,8 +356,8 @@ button {
 @media (prefers-color-scheme: dark) {
 
     body {
-        background-color: #121212;
-        background-image:  url('../images/background-dark.jpg');
+        background-color: #00232f;
+        background-image:  url('../images/bkg-blue-court-dark.jpg');
         color: #f1f1f1;
     }
 
