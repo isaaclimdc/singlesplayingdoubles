@@ -31,65 +31,71 @@
         </style>
     </head>
     <body>
-        <h1>${title}</h1>
+        <h1>
+            <% if (isNew) { %>
+                New registration from <%= application.first_name %> <%= application.last_name %>!
+            <% } else { %>
+                <%= application.first_name %> <%= application.last_name %>'s updated application
+            <% } %>
+        </h1>
 
         <div class="box">
             <h2>Name</h2>
-            <p>${application.first_name} ${application.last_name}</p>
+            <p><%= application.first_name %> <%= application.last_name %></p>
         </div>
         <div class="box">
             <h2>Age</h2>
-            <p>${application.age}</p>
+            <p><%= application.age %></p>
         </div>
         <div class="box">
             <h2>Gender</h2>
-            <p>${application.gender}</p>
+            <p><%= application.gender %></p>
         </div>
         <div class="box">
             <h2>Email</h2>
-            <p>${application.email}</p>
+            <p><%= application.email %></p>
         </div>
         <div class="box">
             <h2>Phone</h2>
-            <p>${application.phone}</p>
+            <p><%= application.phone %></p>
         </div>
         <div class="box">
             <h2>IG handle</h2>
-            <a href="https://www.instagram.com/${application.ig_handle}">
-                <p>${application.ig_handle}</p>
+            <a href="https://www.instagram.com/<%= application.ig_handle %>">
+                <p><%= application.ig_handle %></p>
             </a>
         </div>
         <div class="box">
             <h2>Tennis level</h2>
-            <p>${application.tennis_level}</p>
+            <p><%= application.tennis_level %></p>
         </div>
         <div class="box">
             <h2>Time preferences</h2>
-            <p>${application.time_prefs}</p>
+            <p><%= application.time_prefs %></p>
         </div>
         <div class="box">
             <h2>Personality notes</h2>
-            <p>${application.personality_notes}</p>
+            <p><%= application.personality_notes %></p>
         </div>
         <div class="box">
             <h2>Misc notes</h2>
-            <p>${application.misc_notes}</p>
+            <p><%= application.misc_notes %></p>
         </div>
         <div class="box">
             <h2>UTM source</h2>
-            <p>${application.utm_source}</p>
+            <p><%= application.utm_source %></p>
         </div>
         <div class="box">
             <h2>UTM medium</h2>
-            <p>${application.utm_medium}</p>
+            <p><%= application.utm_medium %></p>
         </div>
         <div class="box">
             <h2>UTM campaign</h2>
-            <p>${application.utm_campaign}</p>
+            <p><%= application.utm_campaign %></p>
         </div>
         <div class="box">
             <h2>Referrer</h2>
-            <p>${application.referrer}</p>
+            <p><%= application.referrer %></p>
         </div>
     </body>
 </html>

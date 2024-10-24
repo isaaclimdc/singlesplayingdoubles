@@ -93,7 +93,7 @@
                 <h1>Thanks for registering!</h1>
             </div>
             <div class="content">
-                <p>Hi ${application.first_name},</p>
+                <p>Hi <%= application.first_name %>,</p>
                 <p>
                     Thanks for registering for Singles Playing Doubles! We're in the midst of finalising logistics, and
                     selecting the participants for the upcoming season. Please hang tight, and we'll get back to you with
@@ -104,7 +104,7 @@
                 </p>
                 <a href="https://www.instagram.com/singlesplayingdoubles/" class="button">Follow us</a>
                 <p>
-                    Oh and by the way, use <a href="https://singlesplayingdoubles.sg/join/${application.id}">this link</a>
+                    Oh and by the way, use <a href="https://singlesplayingdoubles.sg/join/<%= application.id %>">this link</a>
                     to update responses in your application. Note that this link is unique to you, so please don't send it to others!
                 </p>
                 

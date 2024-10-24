@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
+const ejs = require('ejs');
 const { v4: uuidv4 } = require('uuid');
 const { SitemapStream, streamToPromise } = require('sitemap');
 
@@ -219,7 +220,11 @@ app.post('/update-application', async (req, res) => {
 });
 
 function sendEmailToApplicant(application) {
-    const emailTemplate = fs.readFileSync(path.join(__dirname, 'email-conf.html'), 'utf-8');
+    // Render the email template with EJS
+    const rawEmailTemplate = fs.readFileSync(path.join(__dirname, 'email-conf.ejs'), 'utf-8');
+    const emailTemplate = ejs.render(rawEmailTemplate, {
+        application: application,
+    });
 
     const mailOptions = {
         from: `"Singles Playing Doubles" <${process.env.SPD_EMAIL_USER}>`,
@@ -238,14 +243,13 @@ function sendEmailToApplicant(application) {
 }
 
 function sendEmailToOurselves(application, isNew) {
-    const subject = `${application.name} registered!`
-    if (isNew) {
-        title = `New registration from ${application.name}!`
-    } else {
-        title = `${application.name}'s updated application`
-    }
+    const subject = `${application.first_name} ${application.last_name} registered!`
 
-    const emailTemplate = fs.readFileSync(path.join(__dirname, 'email-us.html'), 'utf-8');
+    const rawEmailTemplate = fs.readFileSync(path.join(__dirname, 'email-us.ejs'), 'utf-8');
+    const emailTemplate = ejs.render(rawEmailTemplate, {
+        application: application,
+        isNew: isNew,
+    });
 
     const mailOptions = {
         from: `"Singles Playing Doubles" <${process.env.SPD_EMAIL_USER}>`,
