@@ -1,3 +1,5 @@
+/* Top-level elements */
+
 body {
     font-family: "Montserrat", sans-serif;
 
@@ -7,13 +9,89 @@ body {
     width: 100%;
     margin: 0;
 
-    background-color: #003c51;
-    background-image: url('../images/bkg-blue-court.jpg');
     /* Rights to https://www.pexels.com/photo/tennis-balls-at-court-27064360/ */
+    background-image: url('../images/bkg-blue-court.jpg');
+    background-color: #003c51;
     background-size: 100% auto;
     background-position: top center;
     background-repeat: no-repeat;
 }
+
+h1 {
+    font-family: "Lora", serif;
+    font-size: 2.5em;
+    color: #333;
+    text-align: center;
+    padding: 16px 0;
+    margin: 0;
+}
+
+h1:first-child {
+    padding-top: 0;
+}
+
+h1:last-child {
+    padding-bottom: 0;
+}
+
+h2 {
+    font-family: "Lora", serif;
+    font-size: 2.0em;
+    color: #333;
+    padding: 16px 0;
+    margin: 0;
+}
+
+h2:first-child {
+    padding-top: 0;
+}
+
+h2:last-child {
+    padding-bottom: 0;
+}
+
+h3 {
+    font-family: "Montserrat", sans-serif;
+    color: #333;
+    font-weight: normal;
+    font-size: 1.2em;
+    padding: 16px 0;
+    margin: 0;
+}
+h3:first-child {
+    padding-top: 0;
+}
+
+h3:last-child {
+    padding-bottom: 0;
+}
+
+p {
+    font-size: 1.0em;
+    color: #333;
+    padding: 16px 0;
+    margin: 0;
+}
+
+p:first-child {
+    padding-top: 0;
+}
+
+p:last-child {
+    padding-bottom: 0;
+}
+
+a {
+    color: #FF6347;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #e55347;
+    cursor: pointer;
+}
+
+/* Shared custom elements */
 
 .all-container {
     width: 70%;
@@ -29,9 +107,11 @@ body {
     padding: 48px;
     margin: 8px 0;
 }
+
 .container-box:first-child {
     margin-top: 0;
 }
+
 .container-box:last-child {
     margin-bottom: 0;
 }
@@ -39,11 +119,6 @@ body {
 .nav {
     display: flex;
     padding: 0;
-}
-
-.hero {
-    display: block;
-    text-align: center;
 }
 
 .nav a {
@@ -75,79 +150,19 @@ body {
     background-color: #e55347;
 }
 
-h1 {
-    font-family: "Lora", serif;
-    font-size: 2.5em;
-    color: #333;
+.hero {
+    display: block;
     text-align: center;
-    padding: 16px 0;
-    margin: 0;
-}
-h1:first-child {
-    padding-top: 0;
-}
-h1:last-child {
-    padding-bottom: 0;
-}
-
-h2 {
-    font-family: "Lora", serif;
-    font-size: 2.0em;
-    color: #333;
-    padding: 16px 0;
-    margin: 0;
-}
-h2:first-child {
-    padding-top: 0;
-}
-h2:last-child {
-    padding-bottom: 0;
-}
-
-h3 {
-    font-family: "Montserrat", sans-serif;
-    color: #333;
-    font-weight: normal;
-    font-size: 1.2em;
-    padding: 16px 0;
-    margin: 0;
-}
-h3:first-child {
-    padding-top: 0;
-}
-h3:last-child {
-    padding-bottom: 0;
-}
-
-p {
-    font-size: 1.0em;
-    color: #333;
-    padding: 16px 0;
-    margin: 0;
-}
-p:first-child {
-    padding-top: 0;
-}
-p:last-child {
-    padding-bottom: 0;
-}
-
-a {
-    color: #FF6347;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #e55347;
-    cursor: pointer;
 }
 
 .hero-item {
     margin: 16px 0;
 }
+
 .hero-item:first-child {
     margin-top: 0;
 }
+
 .hero-item:last-child {
     margin-bottom: 0;
 }
@@ -189,7 +204,7 @@ a:hover {
     cursor: default;
 }
 
-/* Box Grid */
+/* Box grids */
 
 .box-grid-row {
     display: flex;
@@ -233,12 +248,11 @@ a:hover {
 }
 
 #intro-step-5 {
-    background: linear-gradient(to bottom, #ffa998, #FF6347);
+    background-color: #FF6347;
 }
 
 #intro-step-5 h2, #intro-step-5 p {
     color: white;
-    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.8);
 }
 
 #prices {
@@ -250,7 +264,7 @@ a:hover {
 #prices h1 {
     padding: 0;
     color: white;
-    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.8);
+    text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
 }
 
 .original-price {
@@ -264,7 +278,7 @@ a:hover {
 }
 
 #price-box-1 {
-    background: linear-gradient(to bottom, #ffa998, #FF6347);
+    background-color: #ffa191;
 }
 
 #price-box-2 {
@@ -286,9 +300,11 @@ hr {
 .input-container {
     padding: 16px 0;
 }
+
 .input-container:first-of-type {
     padding-top: 0;
 }
+
 .input-container:last-of-type {
     padding-bottom: 0;
 }
@@ -314,7 +330,7 @@ label {
 
 label.required::after {
     content: " *";
-    color: red;
+    color: #FF6347;
     font-weight: normal;
 }
 
@@ -426,15 +442,19 @@ button {
     #intro-step-1 {
         background-color: black;
     }
+
     #intro-step-2 {
         background-color: #2f2827
     }
+
     #intro-step-3 {
         background-color: #6c463f
     }
+
     #intro-step-4 {
         background-color: #9c5346;
     }
+
     #intro-step-5 {
         background: linear-gradient(to bottom, #cf4a33, #933524);
     }
@@ -447,9 +467,11 @@ button {
         text-shadow: none;
         color: #e0e0e0;
     }
+
     #price-box-1 {
         background: linear-gradient(to bottom, #cf4a33, #933524);
     }
+    
     #price-box-2 {
         background-color: black;
     }
