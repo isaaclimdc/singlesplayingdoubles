@@ -1,0 +1,17 @@
+<div class="container-box hero">
+    <img src="/images/logo.png" alt="Singles Playing Doubles Logo" class="hero-item hero-logo">
+
+    <div class="hero-item">
+        <% if (title !== null && title !== '') { %>
+            <h1><%= title %></h1>
+        <% } %>
+
+        <% if (subtitle !== null && subtitle !== '') { %>
+            <h3><%= subtitle %></h3>
+        <% } %>
+    </div>
+
+    <% if (showIGButton === true) { %>
+        <a href="https://www.instagram.com/singlesplayingdoubles/" target=”_blank” class="hero-item cta-btn"><i class="fab fa-solid fa-instagram fa-lg"></i> Follow us</a>
+    <% } %>
+</div>

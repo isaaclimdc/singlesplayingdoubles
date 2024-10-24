@@ -369,7 +369,7 @@ input:focus, select:focus, textarea:focus {
 
 textarea {
     resize: none;
-    height: 150px;
+    height: 200px;
 }
 
 button {

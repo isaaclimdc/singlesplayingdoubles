@@ -12,30 +12,26 @@
 
     <title>How much does it cost?</title>
 
-    <link rel="icon" href="images/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <script src="scripts/tracking.js" defer></script>
+    <script src="/scripts/tracking.js" defer></script>
     <script src="https://kit.fontawesome.com/e9febd9a44.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="all-container">
-        <div class="container-box nav">
-            <a href="/">Home</a>
-            <a href="/pricing" class="nav-primary">Pricing</a>
-            <a href="/contact">Contact</a>
-            <a href="/join">Sign up!</a>
-        </div>
+        <!-- Include the nav bar partial -->
+        <%- include('partials/nav', { primaryTab: 'pricing' }) %>
 
-        <div class="container-box hero">
-            <img src="images/logo.png" alt="Singles Playing Doubles Logo" class="hero-item hero-logo">
-            <div class="hero-item">
-                <h1>How much does it cost?</h1>
-            </div>
-        </div>
+        <!-- Include the hero partial -->
+        <%- include('partials/hero', {
+            title: 'How much does it cost?',
+            subtitle: null,
+            showIGButton: false,
+        }) %>
 
         <div class="container-box body-container">
             <div class="box-grid" id="pricing-boxes">
@@ -81,11 +77,8 @@
             </p>
         </div>
 
-        <footer class="container-box">
-            <a href="https://www.instagram.com/singlesplayingdoubles/"><i class="fab fa-solid fa-instagram fa-xl"></i></a>
-            <a href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
-            <p>singlesplayingdoubles.sg</p>
-        </footer>
+        <!-- Include the footer partial -->
+        <%- include('partials/footer') %>
     </div>
 </body>
 </html>

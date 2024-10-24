@@ -42,27 +42,33 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+
 // Middleware to serve static files (CSS, images, JS, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve HTML pages
+// Render the EJS files
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.render('index');
 });
 app.get('/join', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'join.html'));
+    res.render('join');
 });
 app.get('/pricing', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pricing.html'));
+    res.render('pricing');
 });
 app.get('/contact', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'contact.html'));
+    res.render('contact');
+});
+app.get('/join', (req, res) => {
+    res.render('join');
 });
 app.get('/join2', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'join2.html'));
+    res.render('join2');
 });
 app.get('/thanks', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'thanks.html'));
+    res.render('thanks');
 });
 
 app.get('/sitemap.xml', async (req, res) => {
