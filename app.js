@@ -3,6 +3,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const { SitemapStream, streamToPromise } = require('sitemap');
@@ -104,7 +105,8 @@ app.get('/sitemap.xml', async (req, res) => {
 app.post('/submit-application', (req, res) => {
     const {
         id,
-        name,
+        first_name,
+        last_name,
         age,
         gender,
         email,
@@ -123,7 +125,8 @@ app.post('/submit-application', (req, res) => {
     // Define a application object
     const application = {
         id: uuidv4(),
-        name: name,
+        first_name: first_name,
+        last_name: last_name,
         age: age,
         gender: gender,
         email: email,
@@ -141,15 +144,17 @@ app.post('/submit-application', (req, res) => {
 
     const query = `
         INSERT INTO applications_v1
-            (id, name, age, gender, email, phone, ig_handle, tennis_level, time_prefs, personality_notes, misc_notes,
+            (id, first_name, last_name, age, gender, email, phone, ig_handle, tennis_level,
+            time_prefs, personality_notes, misc_notes,
             utm_source, utm_medium, utm_campaign, referrer)
         VALUES
-            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     db.query(query, [
         application.id,
-        application.name,
+        application.first_name,
+        application.last_name,
         application.age,
         application.gender,
         application.email,
@@ -214,126 +219,7 @@ app.post('/update-application', async (req, res) => {
 });
 
 function sendEmailToApplicant(application) {
-    let emailTemplate =
-`
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background-color: #f4f4f4;
-            }
-            .logo {
-                max-width: 100px;
-                margin: 0;
-            }
-            .email-container {
-                width: 100%;
-                max-width: 600px;
-                margin: 0 auto;
-                background-color: #ffffff;
-            }
-            .header {
-                background-color: #003c51;
-                background-image: url('https://singlesplayingdoubles.sg/images/bkg-blue-court.jpg');
-                background-size: 100% auto;
-                background-position: top 30% center;
-                background-repeat: no-repeat;
-                color: #f1f1f1;;
-                text-align: center;
-                padding: 32px;
-                border-radius: 16px;
-            }
-            h1 {
-                margin: 16px 0 0 0;
-                font-size: 1.8em;
-            }
-            .content {
-                padding: 32px;
-                color: #333;
-            }
-            p {
-                padding: 8px 0;
-                margin: 0;
-                font-size: 1.0em;
-                line-height: 1.5;
-            }
-            p:first-child {
-                padding: 0 0 8px 0;
-            }
-            p:last-child {
-                padding: 8px 0 0 0;
-            }
-            .button {
-                display: inline-block;
-                padding: 16px 24px;
-                margin: 16px 0;
-                background-color: #FF6347;
-                color: white;
-                text-decoration: none;
-                border-radius: 5px;
-                font-size: 1.0em;
-                transition: background-color 0.3s ease;
-            }
-            .button:hover {
-                background-color: #e55347;
-            }
-            .footer {
-                background-color: #f4f4f4;
-                padding: 16px;
-                text-align: center;
-                font-size: 0.8em;
-                border-radius: 16px;
-            }
-            .footer a {
-                color: #666;
-                text-decoration: none;
-            }
-            .footer a:visited {
-                color: #666;
-            }
-            .button a:visited {
-                color: white;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="email-container">
-            <div class="header">
-                <a href="https://singlesplayingdoubles.sg">
-                    <img src="https://singlesplayingdoubles.sg/images/logo.png" alt="Singles Playing Doubles Logo" class="logo">
-                </a>
-                <h1>Thanks for registering!</h1>
-            </div>
-            <div class="content">
-                <p>Hi ${application.name}, </p>
-                <p>
-                    Thanks for registering for Singles Playing Doubles! We're in the midst of finalising logistics, and
-                    selecting the participants for the upcoming season. Please hang tight, and we'll get back to you with
-                    an update soon.
-                </p>
-                <p>
-                    In the meanwhile, please follow us on Instagram!
-                </p>
-                <a href="https://www.instagram.com/singlesplayingdoubles/" class="button">Follow us</a>
-                <p>
-                    Oh and by the way, use <a href="https://singlesplayingdoubles.sg/join/${application.id}">this link</a>
-                    to update responses in your application. Note that this link is unique to you, so please don't send it to others!
-                </p>
-                
-            </div>
-            <div class="footer">
-                <a href="https://singlesplayingdoubles.sg">singlesplayingdoubles.sg</a>
-            </div>
-        </div>
-    </body>
-</html>
-`;
+    const emailTemplate = fs.readFileSync(path.join(__dirname, 'email-conf.html'), 'utf-8');
 
     const mailOptions = {
         from: `"Singles Playing Doubles" <${process.env.SPD_EMAIL_USER}>`,
@@ -359,104 +245,7 @@ function sendEmailToOurselves(application, isNew) {
         title = `${application.name}'s updated application`
     }
 
-    let emailTemplate =
-`
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                color: black;
-                margin: 0;
-                padding: 0;
-            }
-            h1 {
-                font-size: 1.5em;
-                padding: 16px 0;
-                margin: 0
-            }
-            h2 {
-                font-size: 1.2em;
-                padding: 0 0 4px 0;
-                margin: 0
-            }
-            p {
-                padding: 4px 0 0 0;
-                margin: 0;
-            }
-            .box {
-                padding: 16px 0;
-                margin: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>${title}</h1>
-
-        <div class="box">
-            <h2>Name</h2>
-            <p>${application.name}</p>
-        </div>
-        <div class="box">
-            <h2>Age</h2>
-            <p>${application.age}</p>
-        </div>
-        <div class="box">
-            <h2>Gender</h2>
-            <p>${application.gender}</p>
-        </div>
-        <div class="box">
-            <h2>Email</h2>
-            <p>${application.email}</p>
-        </div>
-        <div class="box">
-            <h2>Phone</h2>
-            <p>${application.phone}</p>
-        </div>
-        <div class="box">
-            <h2>IG handle</h2>
-            <a href="https://www.instagram.com/${application.ig_handle}">
-                <p>${application.ig_handle}</p>
-            </a>
-        </div>
-        <div class="box">
-            <h2>Tennis level</h2>
-            <p>${application.tennis_level}</p>
-        </div>
-        <div class="box">
-            <h2>Time preferences</h2>
-            <p>${application.time_prefs}</p>
-        </div>
-        <div class="box">
-            <h2>Personality notes</h2>
-            <p>${application.personality_notes}</p>
-        </div>
-        <div class="box">
-            <h2>Misc notes</h2>
-            <p>${application.misc_notes}</p>
-        </div>
-        <div class="box">
-            <h2>UTM source</h2>
-            <p>${application.utm_source}</p>
-        </div>
-        <div class="box">
-            <h2>UTM medium</h2>
-            <p>${application.utm_medium}</p>
-        </div>
-        <div class="box">
-            <h2>UTM campaign</h2>
-            <p>${application.utm_campaign}</p>
-        </div>
-        <div class="box">
-            <h2>Referrer</h2>
-            <p>${application.referrer}</p>
-        </div>
-    </body>
-</html>
-`;
+    const emailTemplate = fs.readFileSync(path.join(__dirname, 'email-us.html'), 'utf-8');
 
     const mailOptions = {
         from: `"Singles Playing Doubles" <${process.env.SPD_EMAIL_USER}>`,
