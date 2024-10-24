@@ -132,6 +132,16 @@ p:last-child {
     padding-bottom: 0;
 }
 
+a {
+    color: #FF6347;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #e55347;
+    cursor: pointer;
+}
+
 .hero-item {
     margin: 16px 0;
 }
