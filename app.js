@@ -64,8 +64,19 @@ app.get('/contact', (req, res) => {
 app.get('/join', (req, res) => {
     res.render('join');
 });
-app.get('/join2', (req, res) => {
-    res.render('join2');
+app.get('/join/:id', (req, res) => {
+    const applicationId = req.params.id;
+    
+    if (!applicationId) {
+        return res.status(400).json({ error: 'id is required' });
+    }
+
+    getApplicationById(applicationId, (application, error, status_code) => {    
+        res.render('join2', {
+            error: error,
+            application: application,
+        });
+    });    
 });
 app.get('/thanks', (req, res) => {
     res.render('thanks');
@@ -164,23 +175,6 @@ app.post('/submit-application', (req, res) => {
     });
 });
 
-// Route to get application data by ID (for pre-filling the form)
-app.get('/get-application', async (req, res) => {
-    const { id } = req.query;
-    
-    if (!id) {
-        return res.status(400).json({ error: 'id is required' });
-    }
-
-    getApplicationById(id, (application, error, status_code) => {
-        if (error) {
-            return res.status(status_code).json({ error });
-        }
-    
-        res.json(application);
-    });
-});
-
 function getApplicationById(id, callback) {
     db.query('SELECT * FROM applications_v1 WHERE id = ?', [id], (err, queryRes) => {
         if (err) {
@@ -188,9 +182,10 @@ function getApplicationById(id, callback) {
             callback(null, 'Database error', 500);
         } else {
             if (queryRes.length === 0) {
-                callback(null, 'Application not found', 404);
+                callback(null, 'Sorry, application data not found', 404);
+            } else {
+                callback(queryRes[0], null, 200);
             }
-            callback(queryRes[0], null, 200);
         }
     });
 }
@@ -327,7 +322,7 @@ function sendEmailToApplicant(application) {
                 </p>
                 <a href="https://www.instagram.com/singlesplayingdoubles/" class="button">Follow us</a>
                 <p>
-                    Oh and by the way, use <a href="https://singlesplayingdoubles.sg/join2?id=${application.id}">this link</a>
+                    Oh and by the way, use <a href="https://singlesplayingdoubles.sg/join/${application.id}">this link</a>
                     to update responses in your application. Note that this link is unique to you, so please don't send it to others!
                 </p>
                 

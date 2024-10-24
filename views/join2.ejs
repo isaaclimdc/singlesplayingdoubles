@@ -22,91 +22,59 @@
 
         <!-- Include the hero partial -->
         <%- include('partials/hero', {
-            title: 'Update your responses',
-            subtitle: 'Tell us more about you',
+            title: `Hey again, ${application.name}`,
+            subtitle: 'You can update your responses here.',
             showIGButton: false,
         }) %>
 
         <div class="container-box body-container">
-            <div id="error">
-                Nothing to see here!
-            </div>
-            <div id="application-form-container">        
-                <form id="update-application-form" action="/update-application" method="POST">        
-                    <div class="input-container">
-                        <label for="time_prefs">
-                            Do you have preferred days / times for our weekly sessions? Or dates when you're unavailable?
-                        </label>
-                        <label for="time_prefs" class="sublabel">
-                            Note that the program runs for 4 weeks (and may be extended if rain cancels our sessions).
-                            You'd have so much fun you wouldn't want to miss any sessions!
-                        </label>
-                        <textarea id="time_prefs" name="time_prefs" placeholder="eg Tues / Thurs / Fri 8-10pm, unavailable 18-25 Nov"></textarea>
-                    </div>
-        
-                    <div class="input-container">
-                        <label for="personality_notes">
-                            Can you tell us a bit more about your personality, and also what you're looking for in a potential partner?
-                        </label>
-                        <label for="personality_notes" class="sublabel">
-                            For example, what's your MBTI type? What makes your heart skip a beat? :)
-                            This will help us design the best group for you!
-                        </label>
-                        <textarea id="personality_notes" name="personality_notes"></textarea>
-                    </div>
-        
-                    <div class="input-container">
-                        <label for="misc_notes">Anything else you'd like us to know?</label>
-                        <label for="misc_notes" class="sublabel">For example, do you have other fun hobbies, personal interests,
-                            or fancy skills? :) Or perhaps, any allergies or discomforts?
-                        </label>
-                        <textarea id="misc_notes" name="misc_notes"></textarea>
-                    </div>
+            <% if (error !== null) { %>
+                <div id="error">
+                    <%= error %>
+                </div>
+            <% } else { %>
+                <div id="application-form-container">        
+                    <form id="update-application-form" action="/update-application" method="POST">        
+                        <div class="input-container">
+                            <label for="time_prefs">
+                                Do you have preferred days / times for our weekly sessions? Or dates when you're unavailable?
+                            </label>
+                            <label for="time_prefs" class="sublabel">
+                                Note that the program runs for 4 weeks (and may be extended if rain cancels our sessions).
+                                You'd have so much fun you wouldn't want to miss any sessions!
+                            </label>
+                            <textarea id="time_prefs" name="time_prefs" placeholder="eg Tues / Thurs / Fri 8-10pm, unavailable 18-25 Nov"><%= application.time_prefs || '' %></textarea>
+                        </div>
+            
+                        <div class="input-container">
+                            <label for="personality_notes">
+                                Can you tell us a bit more about your personality, and also what you're looking for in a potential partner?
+                            </label>
+                            <label for="personality_notes" class="sublabel">
+                                For example, what's your MBTI type? What makes your heart skip a beat? :)
+                                This will help us design the best group for you!
+                            </label>
+                            <textarea id="personality_notes" name="personality_notes"><%= application.personality_notes || '' %></textarea>
+                        </div>
+            
+                        <div class="input-container">
+                            <label for="misc_notes">Anything else you'd like us to know?</label>
+                            <label for="misc_notes" class="sublabel">For example, do you have other fun hobbies, personal interests,
+                                or fancy skills? :) Or perhaps, any allergies or discomforts?
+                            </label>
+                            <textarea id="misc_notes" name="misc_notes"><%= application.misc_notes || '' %></textarea>
+                        </div>
 
-                    <input type="hidden" name="application_id" id="application_id">
-        
-                    <button type="submit" class="cta-btn form-btn">Update</button>
-                </form>
-            </div>
+                        <input type="hidden" name="application_id" id="application_id" value="<%= application.id %>">
+            
+                        <button type="submit" class="cta-btn form-btn">Update</button>
+                    </form>
+                </div>
+            <% } %>
         </div>
 
         <!-- Include the footer partial -->
         <%- include('partials/footer') %>
     </div>
-
-    <script>
-        // Fetch the application_id from the URL query string
-        const urlParams = new URLSearchParams(window.location.search);
-        const application_id = urlParams.get('id');
-
-        // Fetch existing data and pre-fill the form
-        if (application_id) {
-            fetch(`/get-application?id=${application_id}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch application data');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    document.getElementById('application_id').value = data.id;
-                    document.getElementById('time_prefs').value = data.time_prefs;
-                    document.getElementById('personality_notes').value = data.personality_notes;
-                    document.getElementById('misc_notes').value = data.misc_notes;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-
-                    // Display only error message
-                    const errorMessage = document.getElementById('error');
-                    errorMessage.style.display = 'block';
-                    errorMessage.innerHTML = "Sorry, we weren't able to fetch your application data.";
-                    document.getElementById('application-form-container').classList.add('hidden');
-                });
-        } else {
-            // No application id - load join page
-            window.location.href = '/join';
-        }
-    </script>
 </body>
 </html>
