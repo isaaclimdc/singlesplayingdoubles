@@ -13,8 +13,9 @@ body {
     background-image: url('../images/bkg-blue-court.jpg');
     background-color: #003c51;
     background-size: 100% auto;
-    background-position: top center;
+    background-position: top 30% center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 h1 {
@@ -387,6 +388,11 @@ button {
 /* Media query for small screens */
 @media only screen and (max-width: 767px) {
 
+    body {
+        background-attachment: scroll;
+        background-position: top center;
+    }
+
     .all-container {
         width: 100%;
         padding: 16px;
@@ -394,6 +400,10 @@ button {
 
     .container-box:not(.nav) {
         padding: 24px;
+    }
+
+    .hero-logo {
+        max-width: 100px;
     }
 
     .box-grid-row {
@@ -423,6 +433,11 @@ button {
 
 /* Media query for medium screens */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
+
+    body {
+        background-attachment: scroll;
+        background-position: top center;
+    }
     
     .box-grid-row {
         padding: 0 32px;
