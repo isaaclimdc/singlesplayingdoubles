@@ -179,15 +179,15 @@ p:last-child {
     cursor: default;
 }
 
-/* Steps */
+/* Box Grid */
 
-.intro-step-row {
+.box-grid-row {
     display: flex;
     justify-content: space-between;
     gap: 16px;
 }
 
-.intro-step {
+.box-grid-box {
     flex: 1;
     background-color: #fff;
     border-radius: 8px;
@@ -209,20 +209,56 @@ p:last-child {
 #intro-step-1 {
     background-color: white;
 }
+
 #intro-step-2 {
     background-color: #ffe8e4;
 }
+
 #intro-step-3 {
     background-color: #ffb6a7;
 }
+
 #intro-step-4 {
     background-color: #ff9684;
 }
+
 #intro-step-5 {
-    background-color: #FF6347;
+    background: linear-gradient(to bottom, #ffa998, #FF6347);
 }
-#intro-step-5 p, #intro-step-5 h2 {
+
+#intro-step-5 h2, #intro-step-5 p {
     color: white;
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.8);
+}
+
+#prices {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+}
+
+#prices h1 {
+    padding: 0;
+    color: white;
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.8);
+}
+
+.original-price {
+    text-decoration: line-through;
+    font-size: 1.5em;
+    font-weight: normal;
+}
+
+.current-price {
+    font-size: 3.5em;
+}
+
+#price-box-1 {
+    background: linear-gradient(to bottom, #ffa998, #FF6347);
+}
+
+#price-box-2 {
+    background-color: white;
 }
 
 /* Form */
@@ -320,13 +356,13 @@ button {
         padding: 24px;
     }
 
-    .intro-step-row {
+    .box-grid-row {
         padding: 0;
         flex-direction: column;
         margin: 8px 0;
     }
     
-    .intro-step {
+    .box-grid-box {
         padding: 16px;
         margin: 8px 0;
     }
@@ -344,7 +380,7 @@ button {
 /* Media query for medium screens */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     
-    .intro-step-row {
+    .box-grid-row {
         padding: 0 32px;
         flex-direction: column;
         margin-bottom: 16px;
@@ -390,7 +426,22 @@ button {
         background-color: #9c5346;
     }
     #intro-step-5 {
-        background-color: #cf4a33;
+        background: linear-gradient(to bottom, #cf4a33, #933524);
+    }
+    
+    #intro-step-5 h2, #intro-step-5 p {
+        text-shadow: none;
+    }
+
+    #prices h1 {
+        text-shadow: none;
+        color: #e0e0e0;
+    }
+    #price-box-1 {
+        background: linear-gradient(to bottom, #cf4a33, #933524);
+    }
+    #price-box-2 {
+        background-color: black;
     }
 
     h1, h2, h3, a, p, label, .sublabel {
