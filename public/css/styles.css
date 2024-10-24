@@ -345,6 +345,7 @@ input, select, textarea {
     border-radius: 8px;
     color: #333;
     outline: none;
+    background-color: white;
 }
 
 input:focus, select:focus, textarea:focus {
