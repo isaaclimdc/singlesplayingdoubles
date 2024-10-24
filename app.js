@@ -13,21 +13,15 @@ const app = express();
 const port = 3000;
 dotenv.config();
 
-// Connect to MariaDB using environment variables
-const db = mysql.createConnection({
+// Connect to MariaDB with automatic management
+const db = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT || 3306
-});
-
-db.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MariaDB:', err.stack);
-        return;
-    }
-    console.log('Connected to MariaDB as id', db.threadId);
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
 // Middleware for parsing form data
